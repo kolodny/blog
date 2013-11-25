@@ -80,7 +80,7 @@ think of to share data between windows
 
 If all went as planned then put focus on the bottom left window, hit F5 and you should now see:
 
-[![Success](http://i.imgur.com/PGoqrjB.png)](http://i.imgur.com/PGoqrjB.png)
+[![Success!](http://i.imgur.com/PGoqrjB.png)](http://i.imgur.com/PGoqrjB.png)
 
 You can see that the snippets are there in the top left window.
 
