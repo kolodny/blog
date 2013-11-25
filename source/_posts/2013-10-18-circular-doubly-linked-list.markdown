@@ -3,7 +3,7 @@ layout: post
 title: "Circular Doubly Linked List"
 date: 2013-10-18 11:10
 comments: true
-categories: 
+categories: javascript algorithm
 ---
 
 I was working on a cycling plugin for javascript and kept getting bogged down by accessing the prev and next elements in the array. I kept having to do things like:

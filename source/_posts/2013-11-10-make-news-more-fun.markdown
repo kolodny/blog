@@ -3,7 +3,7 @@ layout: post
 title: "Make News More Fun"
 date: 2013-11-10 08:33
 comments: true
-categories: 
+categories: javascript bookmarklet
 ---
 I just read [this xkcd](http://xkcd.com/1288/) and thought, *I never again will have to read boring news*
 <a href="http://xkcd.com/1288/"><img src="http://imgs.xkcd.com/comics/substitutions.png" title="INSIDE ELON MUSK'S NEW ATOMIC CAT" alt="Substitutions"></a>

@@ -3,7 +3,7 @@ layout: post
 title: "Devtools - Jump To Debugger"
 date: 2013-10-15 14:49
 comments: true
-categories: 
+categories: javascript dev-tools
 ---
 Here's a quick trick to jump into a breakpoint without having to hunt through the sources for the function.
 Assume you have something like this ![Assume something is not working with this](http://i.imgur.com/6E4a1lh.png)

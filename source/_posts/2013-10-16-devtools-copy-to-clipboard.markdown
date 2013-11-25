@@ -3,7 +3,7 @@ layout: post
 title: "Devtools Copy To Clipboard"
 date: 2013-10-16 11:08
 comments: true
-categories: 
+categories: javascript dev-tools
 ---
 I was playing around with devtools and i saw in the autocomplete list of functions had `copy()`  
 It does what it sounds like it does (copies text to the clipboard)
