@@ -3,7 +3,7 @@ layout: post
 title: "My Favorite jQuery Plugin Template"
 date: 2013-12-27 10:57:16 -0500
 comments: true
-categories: 
+categories: javascript jquery
 ---
 
 I've dabbled quite a bit in jQuery and writing plugins for it. I've played around with quite a few different ways to start a plugin, and now I've got a new favorite:
