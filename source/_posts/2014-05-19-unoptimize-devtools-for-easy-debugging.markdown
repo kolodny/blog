@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Unoptimize DevTools For Easy Debugging"
+title: "Unoptimize V8 For Easy Debugging"
 date: 2014-05-19 11:42:09 -0400
 comments: true
 categories: javascript dev-tools
