@@ -16,14 +16,14 @@ Sounds complicated? Let's try an example (all examples will only run in FF unles
 
 Let's start with a simple generator.
 
-<iframe width="100%" height="300" src="http://jsfiddle.net/DEMW9/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="300" src="http://jsfiddle.net/2QsBH/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 As you can see the syntax is `function *() {}` and you need to instantiate a generator before you can use it.
-For more info on the basic of generators see [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)
+For more info on the basics of generators see [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*)
 
 A cool thing about generators is that you can inject a value back into the generator function like so:
 
-<iframe width="100%" height="300" src="http://jsfiddle.net/DEMW9/1/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="300" src="http://jsfiddle.net/2QsBH/1/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 You actually can't inject something into the first `.next()` call, if you try you get this error: `TypeError: attempt to send "a" to newborn generator`
 
@@ -91,7 +91,7 @@ function run(gen) {
 }
 {% endhighlight %}
 
-Easy enough. Now how would we handle concurrent async functions? Well the Promise object has a method `all` which handles it nicely, we just need to utilize it [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) ctrl+f `Promise.all`:
+Easy enough. Now how would we handle concurrent async functions? Well the Promise object has a method `all` which handles it nicely, we just need to utilize it ([MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) ctrl+f `Promise.all`):
 
 {% highlight javascript %}
 function run(gen) {
@@ -102,7 +102,7 @@ function run(gen) {
         var result = gen.next(value);
         if (result.value instanceof Promise) {
             result.value.then(step);
-        else if (result.value instanceof Array) {
+        } else if (result.value instanceof Array) {
             Promise.all(result.value).then(step);
         } else if (!result.done) {
             step(result.value);
@@ -117,3 +117,5 @@ Now we can yield an array of promises to `run` and `Promise.all` will handle the
 putting that all together we get a very powerfull way to write javascript:
 
 <iframe width="100%" height="300" src="http://jsfiddle.net/XKYVB/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+[**Gist**](https://gist.github.com/kolodny/6691380b57abd5b56251)
