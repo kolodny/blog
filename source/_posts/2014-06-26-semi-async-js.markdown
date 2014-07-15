@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Semi-Sync JS"
+title: "Writing Async Javascript Code in Sync Format"
 date: 2014-06-26 11:32:44 -0400
 comments: true
 categories: js node promises
