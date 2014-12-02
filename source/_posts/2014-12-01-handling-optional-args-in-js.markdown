@@ -18,7 +18,7 @@ The way I started to deal with cases like this is as follows:
 
 ```js
 function require(name, deps, fn) {
-  var args = [].slice.call(argument);
+  var args = [].slice.call(arguments);
 
   if (typeof args[0] !== 'string') {
     args.splice(0, 0, null);
