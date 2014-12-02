@@ -21,15 +21,15 @@ function require(name, deps, fn) {
   var args = [].slice.call(argument);
 
   if (typeof args[0] !== 'string') {
-    args.unshift(null);
+    args.splice(0, 0, null);
   }
 
   if (!(args[1] instanceof Array)) {
-    args.unshift([]);
+    args.splice(1, 0, []);
   }
 
   if (typeof args[2] !== 'function') {
-    args.unshift(function() {});
+    args.splice(2, 0, function() {});
   }
 
   [name, deps, fn] = args; // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
