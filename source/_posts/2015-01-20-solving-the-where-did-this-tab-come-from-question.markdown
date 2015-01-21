@@ -6,7 +6,6 @@ comments: true
 categories: dev-tools
 ---
 
-
 Sometimes I find myself with long lived tabs and I don't always remember how I wound up on some of those pages.
 
 Here's a neat little trick I discovered today while trying to find out if I should share an article with someone or if they already shared it with me.
@@ -18,3 +17,9 @@ Then go to the network panel ![network panel](http://i.imgur.com/PFYhqel.png)
 Now refresh the page and scroll to the top of the list of resources and click the top one ![referer](http://i.imgur.com/NRqEsZd.png)
 
 Under the referer request header you should see how you wound up on that page.
+
+----
+
+<small>
+Thanks for [mkoldnd](?#comment-1805577800) for inspiring this bookmarklet **<a href="javascript:(function()%7Bprompt(%22The%20referer%20for%20this%20page%20is:%22,document.referrer)%7D)()%3B">Referer</a>**
+</small>
