@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Promises | Moshe's Blog]]></title>
+  <link href="http://kolodny.github.io/blog/blog/categories/promises/atom.xml" rel="self"/>
+  <link href="http://kolodny.github.io/blog/"/>
+  <updated>2015-09-10T10:28:56-04:00</updated>
+  <id>http://kolodny.github.io/blog/</id>
+  <author>
+    <name><![CDATA[Moshe Kolodny]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Writing Async Javascript Code in Sync Format - Part 1]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/06/26/semi-async-js/"/>
+    <updated>2014-06-26T11:32:44-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/06/26/semi-async-js</id>
+    <content type="html"><![CDATA[<p>Writing async code is hard when not done properly. However there are ways to make it a breeze. One of them is to use promises and not have to worry about code being async or not.</p>
+
+<p>I was looking around at different things and came across <a href="https://github.com/koajs/koa">koa</a> and got inspired to try a similar idea.</p>
+
+<p>The basic idea of Koa is that when you need some async functionality you yield an async thingy like a promise or something similar and then koa waits for it to resolve and then continues your program injecting the new value into the function.</p>
+
+<p>Sounds complicated? Let&rsquo;s try an example (all examples will only run in FF unless Chrome decides to support generators)</p>
+
+<p>Let&rsquo;s start with a simple generator.</p>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/2QsBH/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+
+<p>As you can see the syntax is <code>function *() {}</code> and you need to instantiate a generator before you can use it.
+For more info on the basics of generators see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*">MDN</a></p>
+
+<p>A cool thing about generators is that you can inject a value back into the generator function like so:</p>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/2QsBH/1/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+
+<p>You actually can&rsquo;t inject something into the first <code>.next()</code> call, if you try you get this error: <code>TypeError: attempt to send "a" to newborn generator</code></p>
+
+<p>Using just these two concepts and the very basics about Promises, we can write something that:</p>
+
+<ol>
+<li>Runs a generator until control is given back</li>
+<li>If result if promise like, then resolve it and inject the resolved value back to the generator</li>
+<li>Rinse and repeat.</li>
+</ol>
+
+
+<p>Let&rsquo;s start to write just that. Here&rsquo;s what out program will look like:</p>
+
+<p><div>
+  <pre><code class='javascript'>function *program() {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var rand;
+rand = yield getRandAsync();
+console.log('first time around = ' + rand);
+rand = yield getRandAsync();
+console.log('second time around = ' + rand);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;p&gt;function getRandAsync() {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return Promise.resolve(Math.random())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;p&gt;run(program());</code></pre>
+</div>
+</p>
+
+<p>Now all we need to do is write the <code>run</code> function:</p>
+
+<p><div>
+  <pre><code class='javascript'>function run(gen) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;step();
+
+function step(value) {
+    var result = gen.next(value);
+    if (result.value instanceof Promise) {
+        result.value.then(step);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}</code></pre>
+</div>
+</p>
+
+<p>Putting that all together:</p>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/JHFd5/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+
+<p>Now a couple of nice thigs to have. Let&rsquo;s assume that sometime in the future <code>getRandAsync</code> is changed to just return a value and not a promise, we should handle that:</p>
+
+<p><div>
+  <pre><code class='javascript'>function run(gen) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;step();
+
+function step(value) {
+    var result = gen.next(value);
+    if (result.value instanceof Promise) {
+        result.value.then(step);
+    } else if (!result.done) {
+        step(result.value);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}</code></pre>
+</div>
+</p>
+
+<p>Easy enough. Now how would we handle concurrent async functions? Well the Promise object has a method <code>all</code> which handles it nicely, we just need to utilize it (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">MDN</a> ctrl+f <code>Promise.all</code>):</p>
+
+<p><div>
+  <pre><code class='javascript'>function run(gen) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;step();
+
+function step(value) {
+    var result = gen.next(value);
+    if (result.value instanceof Promise) {
+        result.value.then(step);
+    } else if (result.value instanceof Array) {
+        Promise.all(result.value).then(step);
+    } else if (!result.done) {
+        step(result.value);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}</code></pre>
+</div>
+</p>
+
+<p>Now we can yield an array of promises to <code>run</code> and <code>Promise.all</code> will handle them. <a href="http://kolodny.github.io/blog/blog/2014/04/23/future-proof-your-code-with-promises/">The great thing about <code>Promise.all</code> is that it will handle an array of non promises just as well</a></p>
+
+<p>putting that all together we get a very powerfull way to write javascript:</p>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/XKYVB/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+
+<p><a href="https://gist.github.com/kolodny/6691380b57abd5b56251"><strong>Gist</strong></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Future Proof Your Code With Promises and Promise.all]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/04/23/future-proof-your-code-with-promises/"/>
+    <updated>2014-04-23T11:50:39-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/04/23/future-proof-your-code-with-promises</id>
+    <content type="html"><![CDATA[<p>When starting out with async code there are a few option to manage the callback hell. The one gaining the most traction is promises.</p>
+
+<p><small>I starting writing a promise-like library when I first heard of promises: <a href="https://github.com/kolodny/wttt">WTTT (When This Then That)</a></small></p>
+
+<p>I was playing around with socket.io and had to do some async code as follows:</p>
+
+<p><div>
+  <pre><code class='javascript'>socket.on(&amp;lsquo;join&amp;rsquo;, function(id, name, callback) {
+  socket.join(id);
+  socket.name = name;
+  var people = _.map(io.sockets.clients(room), function(socket) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return {
+  id: socket.id,
+  name: socket.name,
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  });
+  callback(people);
+});</code></pre>
+</div>
+</p>
+
+<p>Looking at the <a href="http://socket.io/#how-to-use">docs</a> show that I should be using an async version as follows:</p>
+
+<p><div>
+  <pre><code class='javascript'>socket.on(&amp;lsquo;join&amp;rsquo;, function(id, name, callback) {
+  socket.join(id) // this is still a sync function
+  socket.set(&amp;lsquo;name&amp;rsquo;, name, function() {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var people = ???;
+callback(people);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  });
+});</code></pre>
+</div>
+</p>
+
+<p>As you can see there&rsquo;s some magic that we need to do. Enter promises.</p>
+
+<p>The basic usage is as follows</p>
+
+<p><div>
+  <pre><code class='javascript'>var promise = new Promise(function(resolve, reject) {
+  setTimeout(function() {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resolve(&quot;It's now two seconds later&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  }, 2000);
+});
+promise.then(function(value) {
+  // value === &amp;ldquo;It&amp;rsquo;s now two seconds later&amp;rdquo;;
+});</code></pre>
+</div>
+</p>
+
+<p>The library that I&rsquo;m using is <a href="https://github.com/petkaantonov/bluebird">bluebird</a>, they provide a <code>Promise.promisifyAll</code> method which takes an object
+and converts all it&rsquo;s methods that have node style callbacks (<code>function callback(err, result) {...}</code>) as a last argument to promises</p>
+
+<p>Promises by itself is not really that usefull, but the real power comes when you need to do many things at once, that&rsquo;s what Promise.all is for</p>
+
+<p><div>
+  <pre><code class='javascript'>var resolveTo = function(thing) {
+  return new Promise(function(resolve) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;resolve(thing);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  });
+};
+var promises = [resolveTo(&amp;lsquo;Apple&amp;rsquo;), resolveTo(&amp;lsquo;Orange&amp;rsquo;)]
+Promise.all(promises).then(function(results) {
+  // results === [&amp;lsquo;Apple&amp;rsquo;, &amp;lsquo;Orange&amp;rsquo;];
+});</code></pre>
+</div>
+</p>
+
+<p><code>Promise.all</code> also can take a non-thenable value and use it as is for example
+<div>
+  <pre><code class='javascript'>var promises = [resolveTo(&amp;lsquo;Apple&amp;rsquo;), resolveTo(&amp;lsquo;Orange&amp;rsquo;), 42]
+Promise.all(promises).then(function(results) {
+  // results === [&amp;lsquo;Apple&amp;rsquo;, &amp;lsquo;Orange&amp;rsquo;, 42];
+});</code></pre>
+</div>
+</p>
+
+<p>Armed with this we can now write the above socket code as follows
+<div>
+  <pre><code class='javascript'>socket.on(&amp;lsquo;join&amp;rsquo;, function(id, name, callback) {
+  socket.join(id) // this is still a sync function
+  socket.setAsync(&amp;lsquo;name&amp;rsquo;).then(function() {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;getPeopleAsync(id).then(function(people) {
+  callback(people);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  });
+});
+function getPeopleAsync(roomId) {
+  return new Promise(function(resolve, reject) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var people = io.sockets.clients(room);
+var promises = [];
+people.forEach(function(socket) {
+  promises.push(
+    new Promise(function(resolveInner) {
+      Promise.all([socket.id, socket.getAsync('name')]).then(function(results) {
+        resolveInner({id: results[0], name: results[1]});
+      });
+    });
+  );
+});
+Promise.all(promises).then(function(people) {
+  resolve(people);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  });
+}</code></pre>
+</div>
+</p>
+
+<p>Which <code>getPeopleAsync</code> can be refactored to:
+<div>
+  <pre><code class='javascript'>function getPeopleAsync(roomId) {
+  return new Promise(function(resolve, reject) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var people = io.sockets.clients(room);
+var promises = [];
+people.forEach(function(socket) {
+  promises.push(
+    new Promise(function(resolveInner) {
+      Promise.all([socket.id, socket.getAsync('name')]).then(function(results) {
+        resolveInner({id: results[0], name: results[1]});
+      })
+    })
+  );
+});
+Promise.all(promises).then(resolve);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  });
+}</code></pre>
+</div>
+
+Which <code>getPeopleAsync</code> can be refactored to:
+<div>
+  <pre><code class='javascript'>function getPeopleAsync(roomId) {
+  var people = io.sockets.clients(room);
+  var promises = [];
+  people.forEach(function(socket) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;promises.push(
+  new Promise(function(resolve) {
+    Promise.all([socket.id, socket.getAsync('name')]).then(function(results) {
+      resolve({id: results[0], name: results[1]});
+    })
+  })
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  });
+  return Promise.all(promises)
+}</code></pre>
+</div>
+</p>
+
+<p>Now this lets us use Promise, notably Promise.all without having to worry about code ever changing from sync to async, consider:
+<div>
+  <pre><code class='javascript'>Promise.all(socket.getAsync(&amp;lsquo;name&amp;rsquo;), socket.getAsync(&amp;lsquo;joined&amp;rsquo;), serverId, personRecord).then(function(results) {
+  // do things with results
+});</code></pre>
+</div>
+
+and
+<div>
+  <pre><code class='javascript'>Promise.all(socket.getAsync(&amp;lsquo;name&amp;rsquo;), socket.getAsync(&amp;lsquo;joined&amp;rsquo;), serverId, db.getPersonAsync(personId)).then(function(results) {
+  // do things with results
+  // absolutely no changes needed here
+});</code></pre>
+</div>
+</p>
+
+<p>Happy coding</p>
+]]></content>
+  </entry>
+  
+</feed>

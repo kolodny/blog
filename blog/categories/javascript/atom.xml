@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Javascript | Moshe's Blog]]></title>
+  <link href="http://kolodny.github.io/blog/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://kolodny.github.io/blog/"/>
+  <updated>2015-09-10T10:28:56-04:00</updated>
+  <id>http://kolodny.github.io/blog/</id>
+  <author>
+    <name><![CDATA[Moshe Kolodny]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Removing Css From Your Workflow]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2015/08/26/removing-css-from-your-workflow/"/>
+    <updated>2015-08-26T12:00:38-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2015/08/26/removing-css-from-your-workflow</id>
+    <content type="html"><![CDATA[<p>I recently started a new project using webpack and babel and react. In the process I was able to eliminate css completely from my workflow. Here&rsquo;s how it used to look:</p>
+
+<p>``` js
+const MyComponent = React.createClass({
+  render() {</p>
+
+<pre><code>return (
+  &lt;ul className="my-list"&gt;
+    {
+      items.map(item =&gt; {
+        return &lt;li className="list-item"&gt;{item}&lt;/li&gt;;
+      })
+    }
+  &lt;/ul&gt;
+);
+</code></pre>
+
+<p>  }
+})
+```</p>
+
+<p>```
+/<em> sass or less </em>/
+.my-list {
+  font-size: 10px;
+  position: relative;</p>
+
+<p>  .list-item {</p>
+
+<pre><code>color: red;
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>or something like that. The problem with this approach is that all the css rules are global so you have to make sure not to step on anyone else&rsquo;s toes. Projects like <a href="http://glenmaddern.com/articles/css-modules">CSS Modules</a> address this problem. Of course you can always namespace your modules with a root CSS class, but when you do have specific rules that are shared (invalid inputs for example), things start getting messy.</p>
+
+<p>If you&rsquo;re already using babel and react then there&rsquo;s a similar solution you can use without installing anything else. The idea is to use <a href="https://facebook.github.io/react/tips/inline-styles.html">react inline style</a>. Using that we get rid of the everything being global and colliding with everything else problem So that&rsquo;s half the battle.</p>
+
+<p>What about inheriting styles from other elements? Well instead of having a cascade happen, we can be explicit and declare exactly how we want to inherit other styles by using the <a href="https://github.com/sebmarkbage/ecmascript-rest-spread">spread operator</a>. Here&rsquo;s the final version of what the code would look like:</p>
+
+<p>```
+// style.js
+export const ul {
+  position: &lsquo;relative&rsquo;,
+  fontSize: 10
+};</p>
+
+<p>export const li {
+  &hellip;ul,
+  color: &lsquo;red&rsquo;
+};</p>
+
+<p>// index.js
+import {ul, li} from &lsquo;./style&rsquo;;
+const MyComponent = React.createClass({
+  render() {</p>
+
+<pre><code>return (
+  &lt;ul style={ul}&gt;
+    {
+      items.map(item =&gt; {
+        return &lt;li style={li}&gt;{item}&lt;/li&gt;;
+      })
+    }
+  &lt;/ul&gt;
+);
+</code></pre>
+
+<p>  }
+})</p>
+
+<p>```</p>
+
+<p>A great thing about this is that looking at the class and the spreads on it, you can easily see which rules will override other rules based on the spread position, for example <code>o1:{a:1}, o2={b:2}, o3={a:3}, final={ ...o1, ...o2, ...o3 }</code> then final will equal <code>{a:3, b:2}</code></p>
+
+<p>This would make deep inheritance somewhat of a pain, but how often is deep inheritance actually needed? I suspect not that often</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[When Programming Goes Bad - Debugging the Impossible]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/07/21/when-programming-goes-bad-debugging-the-impossible/"/>
+    <updated>2014-07-21T10:28:09-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/07/21/when-programming-goes-bad-debugging-the-impossible</id>
+    <content type="html"><![CDATA[<p>Sometimes code for a project gets so big and so deeply indirected that debugging is nearly impossible.</p>
+
+<p>We had a bug similar to this where a controller was changing models which triggered avalanches of cascades that no human could follow. The only thing we knew was that a select with an id of <code>elusive</code> was being changed through jQuery.</p>
+
+<p>After trying in vain to figure out where the change was happening, I had an <a href="http://en.wikipedia.org/wiki/Eureka_effect">aha! moment</a></p>
+
+<p>This is basically how I solved it:</p>
+
+<p><div>
+  <pre><code class='javascript'>(function($) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var oldAttr = $.fn.attr;
+var oldProp = $.fn.prop;
+$.fn.attr = function() {
+    if (this.id === 'elusive') {
+        debugger;           
+    }
+    return oldAttr.apply(this, arguments);
+};
+$.fn.prop = function() {
+    if (this.id === 'elusive') {
+        debugger;           
+    }
+    return oldProp(this, arguments);
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;})(jQuery);</code></pre>
+</div>
+</p>
+
+<p>Then it&rsquo;s just a matter of looking at the call stack and working backwards from there.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Require a Promise]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/06/09/require-a-promise/"/>
+    <updated>2014-06-09T15:25:18-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/06/09/require-a-promise</id>
+    <content type="html"><![CDATA[<p>I was recently asked how to make a node module that needs to do a database lookup or something else before it can give you an API. The main problem is that <code>require</code> is synchronize and doesn&rsquo;t have a concept of callback or a mechanism to wait for a response The are a couple of ways to solve this, I&rsquo;ll first go through the standard solution and then how I would do it.</p>
+
+<p>The standard way people solve this is by having the API take a callback:</p>
+
+<p><div>
+  <pre><code class='javascript'>var gister = require(&amp;lsquo;gister&amp;rsquo;);&lt;/p&gt;
+
+&lt;p&gt;gister(function(err, create) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (err) throw err;
+create(fileContents);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});</code></pre>
+</div>
+</p>
+
+<p>Now this is easy to read and makes a lot of sense, but you run into a problem of when you have more than one module like this:</p>
+
+<p><div>
+  <pre><code class='javascript'>var gister = require(&amp;lsquo;gister&amp;rsquo;);
+var snippeter = require(&amp;lsquo;snippeter&amp;rsquo;);
+var apis = {};
+var ticks = 2;&lt;/p&gt;
+
+&lt;p&gt;gister(function(err, create) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (err) throw err;
+apis.gister = create;
+if (--ticks === 0) ready(apis);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});
+snippeter(function(err, create) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (err) throw err;
+apis.snippeter = create;
+if (--ticks === 0) ready(apis);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});
+function ready(apis) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// apis.gister
+// apis.snippeter
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}</code></pre>
+</div>
+</p>
+
+<p>This definitly doesn&rsquo;t scale, fortunately we can solve this using the magic of <a href="http://kolodny.github.io/blog/blog/2014/04/23/future-proof-your-code-with-promises/"><strong>Promises</strong></a></p>
+
+<p>File index.js:
+<div>
+  <pre><code class='javascript'>var Promise = require(&amp;ldquo;bluebird&amp;rdquo;);&lt;/p&gt;
+
+&lt;p&gt;var soon = require(&amp;lsquo;./soon.js&amp;rsquo;);&lt;/p&gt;
+
+&lt;p&gt;Promise.all([soon]).then(function(soon) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;console.log(soon);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});</code></pre>
+</div>
+</p>
+
+<p>File soon.js
+<div>
+  <pre><code class='javascript'>var Promise = require(&amp;ldquo;bluebird&amp;rdquo;);&lt;/p&gt;
+
+&lt;p&gt;var ret = {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;obj: 'to return'
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;};&lt;/p&gt;
+
+&lt;p&gt;module.exports = new Promise(function(resolve, reject) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;setTimeout(function() {
+    if (Math.random() &amp;lt; .1) {
+        console.log('about to reject');
+        reject(new Error('Db error'));
+        console.log('rejected');
+    } else {
+        console.log('about to resolve');
+        resolve(ret);
+        console.log('resolved');
+    }
+}, 5000);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});&lt;/p&gt;
+
+&lt;p&gt;//module.exports = ret;</code></pre>
+</div>
+</p>
+
+<p>Now the cool thing about doing it this way is that we can switch back to a synchronize way of loading without having to change any code. We can simulate this by uncommenting the last line <code>//module.exports = ret;</code> and it will still run the same</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Object.observe Nested Objects]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/05/21/object-dot-observe-nested-objects/"/>
+    <updated>2014-05-21T11:20:31-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/05/21/object-dot-observe-nested-objects</id>
+    <content type="html"><![CDATA[<p>A great article came out yesterday: <a href="http://www.html5rocks.com/en/tutorials/es7/observe/">Data-binding Revolutions with Object.observe()</a></p>
+
+<p>If you didn&rsquo;t read it yet, go read it then come back here.</p>
+
+<p>Ok the basic idea of that article is that you can do things like this</p>
+
+<p><div>
+  <pre><code class='javascript'>var model = {};&lt;/p&gt;
+
+&lt;p&gt;// Which we then observe
+Object.observe(model, function(changes){&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// This asynchronous callback runs and aggregates changes
+changes.forEach(function(change) {
+
+    // Letting us know what changed
+    console.log(change.type, change.name, change.oldValue);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});
+model.adding = &amp;lsquo;a prop&amp;rsquo;;
+model.nested = { obj: &amp;lsquo;thing&amp;rsquo; };
+model.nested.obj = &amp;lsquo;another thing&amp;rsquo;;</code></pre>
+</div>
+</p>
+
+<p>running that in the console we get:</p>
+
+<p><div>
+  <pre><code class='javascript'>add adding undefined
+add nested undefined</code></pre>
+</div>
+</p>
+
+<p>Now it would be cool if there was a way to observe nested objects. Here&rsquo;s a simple function to do so:</p>
+
+<p><div>
+  <pre><code class='javascript'>function observeNested(obj, callback) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Object.observe(obj, function(changes){
+    changes.forEach(function(change) {
+        if (typeof obj[change.name] == 'object') {
+            observeNested(obj[change.name], callback);
+        }
+    });
+    callback.apply(this, arguments);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}</code></pre>
+</div>
+</p>
+
+<p>Now at first glance it would seem this doesn&rsquo;t work:</p>
+
+<p><div>
+  <pre><code class='javascript'>function observeNested(obj, callback) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Object.observe(obj, function(changes){
+    changes.forEach(function(change) {
+        if (typeof obj[change.name] == 'object') {
+            observeNested(obj[change.name], callback);
+        }
+    });
+    callback.apply(this, arguments);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;p&gt;var model = {};&lt;/p&gt;
+
+&lt;p&gt;// Which we then observe
+observeNested(model, function(changes){&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;changes.forEach(function(change) {
+    console.log(change.type, change.name, change.oldValue);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});
+model.adding = &amp;lsquo;a prop&amp;rsquo;;
+model.nested = { obj: &amp;lsquo;thing&amp;rsquo; };
+model.nested.obj = &amp;lsquo;another thing&amp;rsquo;;&lt;/p&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<p>Still shows:</p>
+
+<p><div>
+  <pre><code class='javascript'>add adding undefined
+add nested undefined</code></pre>
+</div>
+</p>
+
+<p>But then I remembered that (and I&rsquo;m quiting from the article):
+<code>Object.observe(), part of a future ECMAScript standard, is a method for asynchronously observing changes to JavaScript objects</code></p>
+
+<p>So in the case above since the two assignments to <code>model.nested</code> happen right after another, it only logs it as one event, If you were using promises to some other async mechanism it would work as advertised:</p>
+
+<p><div>
+  <pre><code class='javascript'>function observeNested(obj, callback) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Object.observe(obj, function(changes){
+    changes.forEach(function(change) {
+        if (typeof obj[change.name] == 'object') {
+            observeNested(obj[change.name], callback);
+        }
+    });
+    callback.apply(this, arguments);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;p&gt;var model = {};&lt;/p&gt;
+
+&lt;p&gt;// Which we then observe
+observeNested(model, function(changes){&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;changes.forEach(function(change) {
+    console.log(change.type, change.name, change.oldValue);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});
+setTimeout(function() {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;model.adding = 'a prop';
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}, 200);
+setTimeout(function() {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;model.nested = { obj: 'thing' };
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}, 400);
+setTimeout(function() {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;model.nested.obj = 'another thing';
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}, 600);</code></pre>
+</div>
+</p>
+
+<p>Which shows:</p>
+
+<p><div>
+  <pre><code class='javascript'>add adding undefined
+add nested undefined
+update obj thing</code></pre>
+</div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unoptimize V8 for Easy Debugging]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/05/19/unoptimize-devtools-for-easy-debugging/"/>
+    <updated>2014-05-19T11:42:09-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/05/19/unoptimize-devtools-for-easy-debugging</id>
+    <content type="html"><![CDATA[<p>Every now and then I need to debug something in DevTools and I get this puzzling error:</p>
+
+<p><a href="http://i.imgur.com/nRvfrMy.png"><img src="http://i.imgur.com/nRvfrMy.png" alt="ReferenceError" /></a></p>
+
+<p>That&rsquo;s V8 optimizing the function and seeing that <code>thing</code> isn&rsquo;t used in the function and therefore not putting it into the closure scope. There are a couple of ways to break this optimization, one is to use <code>thing</code> somewhere in the debugging function, however the problem with this is that you must enumerate all the vars you want to inspect. An easier technique I&rsquo;ve found is to make it impossible for V8 to know what vars will be used in the function. What that entails is to just have a blank <code>eval</code> in the function somewhere (I usually put in right before the debugger statement):</p>
+
+<p><a href="http://i.imgur.com/wnFtgte.png"><img src="http://i.imgur.com/wnFtgte.png" alt="ReferenceError" /></a></p>
+]]></content>
+  </entry>
+  
+</feed>

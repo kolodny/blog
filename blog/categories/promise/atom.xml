@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Promise | Moshe's Blog]]></title>
+  <link href="http://kolodny.github.io/blog/blog/categories/promise/atom.xml" rel="self"/>
+  <link href="http://kolodny.github.io/blog/"/>
+  <updated>2015-09-10T10:28:56-04:00</updated>
+  <id>http://kolodny.github.io/blog/</id>
+  <author>
+    <name><![CDATA[Moshe Kolodny]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Require a Promise]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/06/09/require-a-promise/"/>
+    <updated>2014-06-09T15:25:18-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/06/09/require-a-promise</id>
+    <content type="html"><![CDATA[<p>I was recently asked how to make a node module that needs to do a database lookup or something else before it can give you an API. The main problem is that <code>require</code> is synchronize and doesn&rsquo;t have a concept of callback or a mechanism to wait for a response The are a couple of ways to solve this, I&rsquo;ll first go through the standard solution and then how I would do it.</p>
+
+<p>The standard way people solve this is by having the API take a callback:</p>
+
+<p><div>
+  <pre><code class='javascript'>var gister = require(&amp;lsquo;gister&amp;rsquo;);&lt;/p&gt;
+
+&lt;p&gt;gister(function(err, create) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (err) throw err;
+create(fileContents);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});</code></pre>
+</div>
+</p>
+
+<p>Now this is easy to read and makes a lot of sense, but you run into a problem of when you have more than one module like this:</p>
+
+<p><div>
+  <pre><code class='javascript'>var gister = require(&amp;lsquo;gister&amp;rsquo;);
+var snippeter = require(&amp;lsquo;snippeter&amp;rsquo;);
+var apis = {};
+var ticks = 2;&lt;/p&gt;
+
+&lt;p&gt;gister(function(err, create) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (err) throw err;
+apis.gister = create;
+if (--ticks === 0) ready(apis);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});
+snippeter(function(err, create) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (err) throw err;
+apis.snippeter = create;
+if (--ticks === 0) ready(apis);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});
+function ready(apis) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// apis.gister
+// apis.snippeter
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}</code></pre>
+</div>
+</p>
+
+<p>This definitly doesn&rsquo;t scale, fortunately we can solve this using the magic of <a href="http://kolodny.github.io/blog/blog/2014/04/23/future-proof-your-code-with-promises/"><strong>Promises</strong></a></p>
+
+<p>File index.js:
+<div>
+  <pre><code class='javascript'>var Promise = require(&amp;ldquo;bluebird&amp;rdquo;);&lt;/p&gt;
+
+&lt;p&gt;var soon = require(&amp;lsquo;./soon.js&amp;rsquo;);&lt;/p&gt;
+
+&lt;p&gt;Promise.all([soon]).then(function(soon) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;console.log(soon);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});</code></pre>
+</div>
+</p>
+
+<p>File soon.js
+<div>
+  <pre><code class='javascript'>var Promise = require(&amp;ldquo;bluebird&amp;rdquo;);&lt;/p&gt;
+
+&lt;p&gt;var ret = {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;obj: 'to return'
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;};&lt;/p&gt;
+
+&lt;p&gt;module.exports = new Promise(function(resolve, reject) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;setTimeout(function() {
+    if (Math.random() &amp;lt; .1) {
+        console.log('about to reject');
+        reject(new Error('Db error'));
+        console.log('rejected');
+    } else {
+        console.log('about to resolve');
+        resolve(ret);
+        console.log('resolved');
+    }
+}, 5000);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});&lt;/p&gt;
+
+&lt;p&gt;//module.exports = ret;</code></pre>
+</div>
+</p>
+
+<p>Now the cool thing about doing it this way is that we can switch back to a synchronize way of loading without having to change any code. We can simulate this by uncommenting the last line <code>//module.exports = ret;</code> and it will still run the same</p>
+]]></content>
+  </entry>
+  
+</feed>

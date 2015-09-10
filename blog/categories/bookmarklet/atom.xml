@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Bookmarklet | Moshe's Blog]]></title>
+  <link href="http://kolodny.github.io/blog/blog/categories/bookmarklet/atom.xml" rel="self"/>
+  <link href="http://kolodny.github.io/blog/"/>
+  <updated>2015-09-10T10:28:56-04:00</updated>
+  <id>http://kolodny.github.io/blog/</id>
+  <author>
+    <name><![CDATA[Moshe Kolodny]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Make News More Fun]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2013/11/10/make-news-more-fun/"/>
+    <updated>2013-11-10T08:33:00-05:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2013/11/10/make-news-more-fun</id>
+    <content type="html"><![CDATA[<p>I just read <a href="http://xkcd.com/1288/">this xkcd</a> and thought, <em>I never again will have to read boring news</em>
+<a href="http://xkcd.com/1288/"><img src="http://imgs.xkcd.com/comics/substitutions.png" title="INSIDE ELON MUSK'S NEW ATOMIC CAT" alt="Substitutions"></a></p>
+
+<p>So I made a quick bookmarklet accomplish just that</p>
+
+<h1><a href='javascript:(function(){var dict={"Witnesses":"these dudes I know","Allegedly":"kinda probably","New study":"tumblr post","Rebuild":"avenge","Space":"spaaace","Google Glass":"virtual Boy","Smartphone":"pokedex","Electric":"atomic","Senator":"elf-lord","Car":"cat","Election":"eating contest","Congressional leaders":"river spirits","Homeland security":"Homestar Runner","Could not be reached for comment":"is guilty and everyone knows it"};var dictRegex=new RegExp("(.)\\s*\\b("+Object.keys(dict).join("|").replace(/\s\s*/g, "\\s*")+")","gi");var dictReplacers=[];for(var i in dict)dictReplacers.push([new RegExp(i.replace(/\s\s*/g,"\\s"),"i"),dict[i]]);var textNodes=[];var all=document.getElementsByTagName("*");for(var i=0;i<all.length;i++)for(var j=0;j<all[i].childNodes.length;j++)if(all[i].childNodes[j].nodeType===3)textNodes.push(all[i].childNodes[j]);for(i=0;i<textNodes.length;i++)if(textNodes[i]&&textNodes[i].nodeValue)textNodes[i].nodeValue=textNodes[i].nodeValue.replace(dictRegex,function(all,preChar){console.log(preChar); for(var j=0;j<dictReplacers.length;j++)if(dictReplacers[j][0].test(all))return preChar+(!/[a-z\x27]/i.test(preChar)?dictReplacers[j][1].charAt(0).toUpperCase()+dictReplacers[j][1].slice(1):dictReplacers[j][1])})})();'>News Interestinger</a></h1>
+
+
+<p>Hint: Click it and watch the text in the code change.</p>
+
+<p>Source:</p>
+
+<p><div>
+  <pre><code class='javascript'>var dict = {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&quot;Witnesses&quot;: &quot;these dudes I know&quot;,
+&quot;Allegedly&quot;: &quot;kinda probably&quot;,
+&quot;New study&quot;: &quot;tumblr post&quot;,
+&quot;Rebuild&quot;: &quot;avenge&quot;,
+&quot;Space&quot;: &quot;spaaace&quot;,
+&quot;Google Glass&quot;: &quot;virtual Boy&quot;,
+&quot;Smartphone&quot;: &quot;pokedex&quot;,
+&quot;Electric&quot;: &quot;atomic&quot;,
+&quot;Senator&quot;: &quot;elf-lord&quot;,
+&quot;Car&quot;: &quot;cat&quot;,
+&quot;Election&quot;: &quot;eating contest&quot;,
+&quot;Congressional leaders&quot;: &quot;river spirits&quot;,
+&quot;Homeland security&quot;: &quot;Homestar Runner&quot;,
+&quot;Could not be reached for comment&quot;: &quot;is guilty and everyone knows it&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}
+var dictRegex = new RegExp(&amp;lsquo;(.)\s&lt;em&gt;\b(&amp;rsquo; + Object.keys(dict).join(&amp;lsquo;|&amp;rsquo;).replace(/\s\s&lt;/em&gt;/g, &amp;lsquo;\s*&amp;rsquo;) + &amp;lsquo;)&amp;rsquo;, &amp;lsquo;gi&amp;rsquo;);
+var dictReplacers = [];
+for (var i in dict) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dictReplacers.push([new RegExp(i.replace(/\s\s*/g, '\\s'), 'i'), dict[i]])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}
+var textNodes = [];
+var all = document.getElementsByTagName(&amp;lsquo;*&amp;rsquo;);
+for (var i = 0; i &amp;lt; all.length; i++) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;for (var j = 0; j &amp;lt; all[i].childNodes.length; j++) {
+    if (all[i].childNodes[j].nodeType === 3) {            
+        textNodes.push(all[i].childNodes[j]);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}
+for (i = 0; i &amp;lt; textNodes.length; i++) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (textNodes[i] &amp;amp;&amp;amp; textNodes[i].nodeValue) {
+    textNodes[i].nodeValue = textNodes[i].nodeValue.replace(dictRegex, function(all, preChar) {
+        console.log(preChar)
+        for (var j = 0; j &amp;lt; dictReplacers.length; j++) {
+            if (dictReplacers[j][0].test(all)) {
+                return preChar + (!/[a-z\x27]/i.test(preChar) ?
+                    dictReplacers[j][1].charAt(0).toUpperCase() + dictReplacers[j][1].slice(1) :
+                    dictReplacers[j][1])
+            }
+        }
+    });
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+]]></content>
+  </entry>
+  
+</feed>

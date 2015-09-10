@@ -1,115 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Moshe's Blog</title>
-  <meta name="author" content="Moshe Kolodny">
-
-  
-  <meta name="description" content="I recently started a new project using webpack and babel and react. In the process I was able to eliminate css completely from my workflow. Here& &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://kolodny.github.io/blog">
-  <link href="/blog/favicon.png" rel="icon">
-  <link href="/blog/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/blog/atom.xml" rel="alternate" title="Moshe's Blog" type="application/atom+xml">
-  <script src="/blog/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/blog/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-45912303-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/blog/">Moshe's Blog</a></h1>
-  
-    <h2>Tips and tricks learnt along the way.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:kolodny.github.io/blog" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/blog/">Blog</a></li>
-  <li><a href="/blog/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[Moshe's Blog]]></title>
+  <link href="http://kolodny.github.io/blog/atom.xml" rel="self"/>
+  <link href="http://kolodny.github.io/blog/"/>
+  <updated>2015-09-10T10:28:56-04:00</updated>
+  <id>http://kolodny.github.io/blog/</id>
+  <author>
+    <name><![CDATA[Moshe Kolodny]]></name>
     
-      <h1 class="entry-title"><a href="/blog/blog/2015/08/26/removing-css-from-your-workflow/">Removing Css From Your Workflow</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2015-08-26T12:00:38-04:00" pubdate data-updated="true">Aug 26<span>th</span>, 2015</time>
-        
-           | <a href="/blog/blog/2015/08/26/removing-css-from-your-workflow/#disqus_thread"
-             data-disqus-identifier="http://kolodny.github.io/blog/blog/2015/08/26/removing-css-from-your-workflow/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I recently started a new project using webpack and babel and react. In the process I was able to eliminate css completely from my workflow. Here&rsquo;s how it used to look:</p>
+  <entry>
+    <title type="html"><![CDATA[Removing Css From Your Workflow]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2015/08/26/removing-css-from-your-workflow/"/>
+    <updated>2015-08-26T12:00:38-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2015/08/26/removing-css-from-your-workflow</id>
+    <content type="html"><![CDATA[<p>I recently started a new project using webpack and babel and react. In the process I was able to eliminate css completely from my workflow. Here&rsquo;s how it used to look:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -227,45 +136,15 @@
 <p>A great thing about this is that looking at the class and the spreads on it, you can easily see which rules will override other rules based on the spread position, for example <code>o1:{a:1}, o2={b:2}, o3={a:3}, final={ ...o1, ...o2, ...o3 }</code> then final will equal <code>{a:3, b:2}</code></p>
 
 <p>This would make deep inheritance somewhat of a pain, but how often is deep inheritance actually needed? I suspect not that often</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/blog/2015/03/03/the-one-hour-side-project/">The One Hour Side Project</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-03-03T14:40:12-05:00" pubdate data-updated="true">Mar 3<span>rd</span>, 2015</time>
-        
-           | <a href="/blog/blog/2015/03/03/the-one-hour-side-project/#disqus_thread"
-             data-disqus-identifier="http://kolodny.github.io/blog/blog/2015/03/03/the-one-hour-side-project/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;d like to talk about side projects. If you&rsquo;re a strict nine to fiver then this blog post probably isn&rsquo;t for you.</p>
+  <entry>
+    <title type="html"><![CDATA[The One Hour Side Project]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2015/03/03/the-one-hour-side-project/"/>
+    <updated>2015-03-03T14:40:12-05:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2015/03/03/the-one-hour-side-project</id>
+    <content type="html"><![CDATA[<p>I&rsquo;d like to talk about side projects. If you&rsquo;re a strict nine to fiver then this blog post probably isn&rsquo;t for you.</p>
 
 <p>A lot of the side projects that I created when I first started programming were fairly ambitious in their functionality and complexity, this led to the average project I started taking at least a week to get to the point of releasable. Recently I started what I call <strong>&ldquo;The One Hour Side Project&rdquo;</strong>.</p>
 
@@ -284,45 +163,15 @@ Don&rsquo;t like the exact functionality of an extension? Fork it and modify</p>
 <p>Screw around with some async stuff. Write a 10 line quicksort. Try to break babel. Start a blog.</p>
 
 <p>Now get out there any make something!</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/blog/2015/01/20/solving-the-where-did-this-tab-come-from-question/">Solving the &#8220;Where Did This Tab Come From?&#8221; Question</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-01-20T20:07:03-05:00" pubdate data-updated="true">Jan 20<span>th</span>, 2015</time>
-        
-           | <a href="/blog/blog/2015/01/20/solving-the-where-did-this-tab-come-from-question/#disqus_thread"
-             data-disqus-identifier="http://kolodny.github.io/blog/blog/2015/01/20/solving-the-where-did-this-tab-come-from-question/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sometimes I find myself with long lived tabs and I don&rsquo;t always remember how I wound up on some of those pages.</p>
+  <entry>
+    <title type="html"><![CDATA[Solving the "Where Did This Tab Come From?" Question]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2015/01/20/solving-the-where-did-this-tab-come-from-question/"/>
+    <updated>2015-01-20T20:07:03-05:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2015/01/20/solving-the-where-did-this-tab-come-from-question</id>
+    <content type="html"><![CDATA[<p>Sometimes I find myself with long lived tabs and I don&rsquo;t always remember how I wound up on some of those pages.</p>
 
 <p>Here&rsquo;s a neat little trick I discovered today while trying to find out if I should share an article with someone or if they already shared it with me.</p>
 
@@ -339,45 +188,15 @@ Don&rsquo;t like the exact functionality of an extension? Fork it and modify</p>
 <p><small>
 Thanks for <a href="?#comment-1805577800">mkoldnd</a> for inspiring this bookmarklet <strong><a href="javascript:(function()%7Bprompt(%22The%20referer%20for%20this%20page%20is:%22,document.referrer)%7D)()%3B">Referer</a></strong>
 </small></p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/blog/2014/12/01/handling-optional-args-in-js/">Handling Optional Args in JS</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-12-01T10:18:32-05:00" pubdate data-updated="true">Dec 1<span>st</span>, 2014</time>
-        
-           | <a href="/blog/blog/2014/12/01/handling-optional-args-in-js/#disqus_thread"
-             data-disqus-identifier="http://kolodny.github.io/blog/blog/2014/12/01/handling-optional-args-in-js/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Often times I find myself writing functions which have optional args, while it&rsquo;s generally a better idea to pass an options object instead for mutliple arguments, three (maybe four) can still be considered an acceptable <a href="http://en.wikipedia.org/wiki/Arity">arity</a>.</p>
+  <entry>
+    <title type="html"><![CDATA[Handling Optional Args in JS]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/12/01/handling-optional-args-in-js/"/>
+    <updated>2014-12-01T10:18:32-05:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/12/01/handling-optional-args-in-js</id>
+    <content type="html"><![CDATA[<p>Often times I find myself writing functions which have optional args, while it&rsquo;s generally a better idea to pass an options object instead for mutliple arguments, three (maybe four) can still be considered an acceptable <a href="http://en.wikipedia.org/wiki/Arity">arity</a>.</p>
 
 <p>Let&rsquo;s take a simple signature and implement some optional args.</p>
 
@@ -428,45 +247,15 @@ Thanks for <a href="?#comment-1805577800">mkoldnd</a> for inspiring this bookmar
 
 
 <p>I find this the clearest way to deal with optional args and I find the logic very easy to follow.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/blog/2014/10/30/evaling-with-style/">Evaling With Style</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-10-30T08:19:10-04:00" pubdate data-updated="true">Oct 30<span>th</span>, 2014</time>
-        
-           | <a href="/blog/blog/2014/10/30/evaling-with-style/#disqus_thread"
-             data-disqus-identifier="http://kolodny.github.io/blog/blog/2014/10/30/evaling-with-style/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A couple of projects I&rsquo;ve been working on, required me to turn strings into functions (templating, custom require, <a href="https://github.com/kolodny/m2">mocha clone</a>) and it didn&rsquo;t seem like there was a good way to do it with things I needed in scope.</p>
+  <entry>
+    <title type="html"><![CDATA[Evaling With Style]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/10/30/evaling-with-style/"/>
+    <updated>2014-10-30T08:19:10-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/10/30/evaling-with-style</id>
+    <content type="html"><![CDATA[<p>A couple of projects I&rsquo;ve been working on, required me to turn strings into functions (templating, custom require, <a href="https://github.com/kolodny/m2">mocha clone</a>) and it didn&rsquo;t seem like there was a good way to do it with things I needed in scope.</p>
 
 <p>Let&rsquo;s take a look at a couple of ways to do it.</p>
 
@@ -692,45 +481,15 @@ Thanks for <a href="?#comment-1805577800">mkoldnd</a> for inspiring this bookmar
 <p>I didn&rsquo;t really run any benchmarks but I suspect that this is pretty performant and once you wrap your head around it, is actually pretty simple.</p>
 
 <p>Happy Coding!</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/blog/2014/08/21/piping-to-sublime/">Piping to Sublime</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-21T12:26:31-04:00" pubdate data-updated="true">Aug 21<span>st</span>, 2014</time>
-        
-           | <a href="/blog/blog/2014/08/21/piping-to-sublime/#disqus_thread"
-             data-disqus-identifier="http://kolodny.github.io/blog/blog/2014/08/21/piping-to-sublime/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Every now and then I need to do a quick and dirty transform to a pipe. When it&rsquo;s a one off type of thing and I don&rsquo;t want to bother with awd sed or <a href="https://www.npmjs.org/package/nip">nip</a>, I&rsquo;ll use sublime to do a quick transform</p>
+  <entry>
+    <title type="html"><![CDATA[Piping to Sublime]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/08/21/piping-to-sublime/"/>
+    <updated>2014-08-21T12:26:31-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/08/21/piping-to-sublime</id>
+    <content type="html"><![CDATA[<p>Every now and then I need to do a quick and dirty transform to a pipe. When it&rsquo;s a one off type of thing and I don&rsquo;t want to bother with awd sed or <a href="https://www.npmjs.org/package/nip">nip</a>, I&rsquo;ll use sublime to do a quick transform</p>
 
 <p><img src="http://i.imgur.com/5hnjaHk.png" alt="in progress" />
 <img src="http://i.imgur.com/lMClbyG.png" alt="saved" /></p>
@@ -738,45 +497,15 @@ Thanks for <a href="?#comment-1805577800">mkoldnd</a> for inspiring this bookmar
 <p>And when you save and exit:</p>
 
 <p><img src="http://i.imgur.com/y2vOfyU.jpg" alt="done" /></p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/blog/2014/07/21/when-programming-goes-bad-debugging-the-impossible/">When Programming Goes Bad - Debugging the Impossible</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-21T10:28:09-04:00" pubdate data-updated="true">Jul 21<span>st</span>, 2014</time>
-        
-           | <a href="/blog/blog/2014/07/21/when-programming-goes-bad-debugging-the-impossible/#disqus_thread"
-             data-disqus-identifier="http://kolodny.github.io/blog/blog/2014/07/21/when-programming-goes-bad-debugging-the-impossible/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sometimes code for a project gets so big and so deeply indirected that debugging is nearly impossible.</p>
+  <entry>
+    <title type="html"><![CDATA[When Programming Goes Bad - Debugging the Impossible]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/07/21/when-programming-goes-bad-debugging-the-impossible/"/>
+    <updated>2014-07-21T10:28:09-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/07/21/when-programming-goes-bad-debugging-the-impossible</id>
+    <content type="html"><![CDATA[<p>Sometimes code for a project gets so big and so deeply indirected that debugging is nearly impossible.</p>
 
 <p>We had a bug similar to this where a controller was changing models which triggered avalanches of cascades that no human could follow. The only thing we knew was that a select with an id of <code>elusive</code> was being changed through jQuery.</p>
 
@@ -805,45 +534,15 @@ Thanks for <a href="?#comment-1805577800">mkoldnd</a> for inspiring this bookmar
 
 
 <p>Then it&rsquo;s just a matter of looking at the call stack and working backwards from there.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/blog/2014/07/15/writing-async-javascript-code-in-sync-format-part-2/">Writing Async Javascript Code in Sync Format - Part 2</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-15T12:33:23-04:00" pubdate data-updated="true">Jul 15<span>th</span>, 2014</time>
-        
-           | <a href="/blog/blog/2014/07/15/writing-async-javascript-code-in-sync-format-part-2/#disqus_thread"
-             data-disqus-identifier="http://kolodny.github.io/blog/blog/2014/07/15/writing-async-javascript-code-in-sync-format-part-2/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="/blog/blog/2014/06/26/semi-async-js/">This is a continuation of Writing Async Javascript Code in Sync Format &ndash; Part 1</a></p>
+  <entry>
+    <title type="html"><![CDATA[Writing Async Javascript Code in Sync Format - Part 2]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/07/15/writing-async-javascript-code-in-sync-format-part-2/"/>
+    <updated>2014-07-15T12:33:23-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/07/15/writing-async-javascript-code-in-sync-format-part-2</id>
+    <content type="html"><![CDATA[<p><a href="http://kolodny.github.io/blog/blog/2014/06/26/semi-async-js/">This is a continuation of Writing Async Javascript Code in Sync Format &ndash; Part 1</a></p>
 
 <p>There&rsquo;s a new es6 feature called <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">Destructuring Assignment</a> that looks like this:</p>
 
@@ -887,45 +586,15 @@ Thanks for <a href="?#comment-1805577800">mkoldnd</a> for inspiring this bookmar
 
 
 <p><code>Promise.props</code> is a bluebird specific function that does what <code>Promise.all</code> except on objects. <a href="https://github.com/kolodny/promise-utils/blob/master/promise-props.js">If you&rsquo;re using native Promises it doesn&rsquo;t take much to polyfill it</a></p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/blog/2014/06/26/semi-async-js/">Writing Async Javascript Code in Sync Format - Part 1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-26T11:32:44-04:00" pubdate data-updated="true">Jun 26<span>th</span>, 2014</time>
-        
-           | <a href="/blog/blog/2014/06/26/semi-async-js/#disqus_thread"
-             data-disqus-identifier="http://kolodny.github.io/blog/blog/2014/06/26/semi-async-js/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Writing async code is hard when not done properly. However there are ways to make it a breeze. One of them is to use promises and not have to worry about code being async or not.</p>
+  <entry>
+    <title type="html"><![CDATA[Writing Async Javascript Code in Sync Format - Part 1]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/06/26/semi-async-js/"/>
+    <updated>2014-06-26T11:32:44-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/06/26/semi-async-js</id>
+    <content type="html"><![CDATA[<p>Writing async code is hard when not done properly. However there are ways to make it a breeze. One of them is to use promises and not have to worry about code being async or not.</p>
 
 <p>I was looking around at different things and came across <a href="https://github.com/koajs/koa">koa</a> and got inspired to try a similar idea.</p>
 
@@ -1049,45 +718,15 @@ run(program());</code></pre>
 
 
 <p><a href="https://gist.github.com/kolodny/6691380b57abd5b56251"><strong>Gist</strong></a></p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/blog/2014/06/09/require-a-promise/">Require a Promise</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-09T15:25:18-04:00" pubdate data-updated="true">Jun 9<span>th</span>, 2014</time>
-        
-           | <a href="/blog/blog/2014/06/09/require-a-promise/#disqus_thread"
-             data-disqus-identifier="http://kolodny.github.io/blog/blog/2014/06/09/require-a-promise/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I was recently asked how to make a node module that needs to do a database lookup or something else before it can give you an API. The main problem is that <code>require</code> is synchronize and doesn&rsquo;t have a concept of callback or a mechanism to wait for a response The are a couple of ways to solve this, I&rsquo;ll first go through the standard solution and then how I would do it.</p>
+  <entry>
+    <title type="html"><![CDATA[Require a Promise]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/06/09/require-a-promise/"/>
+    <updated>2014-06-09T15:25:18-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/06/09/require-a-promise</id>
+    <content type="html"><![CDATA[<p>I was recently asked how to make a node module that needs to do a database lookup or something else before it can give you an API. The main problem is that <code>require</code> is synchronize and doesn&rsquo;t have a concept of callback or a mechanism to wait for a response The are a couple of ways to solve this, I&rsquo;ll first go through the standard solution and then how I would do it.</p>
 
 <p>The standard way people solve this is by having the API take a callback:</p>
 
@@ -1169,145 +808,762 @@ module.exports = new Promise(function(resolve, reject) {
 
 
 <p>Now the cool thing about doing it this way is that we can switch back to a synchronize way of loading without having to change any code. We can simulate this by uncommenting the last line <code>//module.exports = ret;</code> and it will still run the same</p>
-</div>
+]]></content>
+  </entry>
   
-  
+  <entry>
+    <title type="html"><![CDATA[Object.observe Nested Objects]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/05/21/object-dot-observe-nested-objects/"/>
+    <updated>2014-05-21T11:20:31-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/05/21/object-dot-observe-nested-objects</id>
+    <content type="html"><![CDATA[<p>A great article came out yesterday: <a href="http://www.html5rocks.com/en/tutorials/es7/observe/">Data-binding Revolutions with Object.observe()</a></p>
 
+<p>If you didn&rsquo;t read it yet, go read it then come back here.</p>
 
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/blog/blog/page/2/">&larr; Older</a>
-    
-    <a href="/blog/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/blog/2015/08/26/removing-css-from-your-workflow/">Removing Css From Your Workflow</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/blog/2015/03/03/the-one-hour-side-project/">The One Hour Side Project</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/blog/2015/01/20/solving-the-where-did-this-tab-come-from-question/">Solving the &#8220;Where Did This Tab Come From?&#8221; Question</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/blog/2014/12/01/handling-optional-args-in-js/">Handling Optional Args in JS</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/blog/2014/10/30/evaling-with-style/">Evaling With Style</a>
-      </li>
-    
-  </ul>
-</section>
+<p>Ok the basic idea of that article is that you can do things like this</p>
 
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/kolodny">@kolodny</a> on GitHub
-  
-  <script type="text/javascript">
-    $(document).ready(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
+<div>
+  <pre><code class='javascript'>var model = {};
 
-        github.showRepos({
-            user: 'kolodny',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
+// Which we then observe
+Object.observe(model, function(changes){
+
+    // This asynchronous callback runs and aggregates changes
+    changes.forEach(function(change) {
+
+        // Letting us know what changed
+        console.log(change.type, change.name, change.oldValue);
     });
-  </script>
-  <script src="/blog/javascripts/github.js" type="text/javascript"> </script>
-</section>
+
+});
+model.adding = 'a prop';
+model.nested = { obj: 'thing' };
+model.nested.obj = 'another thing';</code></pre>
+</div>
+
+
+<p>running that in the console we get:</p>
+
+<div>
+  <pre><code class='javascript'>add adding undefined
+add nested undefined</code></pre>
+</div>
+
+
+<p>Now it would be cool if there was a way to observe nested objects. Here&rsquo;s a simple function to do so:</p>
+
+<div>
+  <pre><code class='javascript'>function observeNested(obj, callback) {
+    Object.observe(obj, function(changes){
+        changes.forEach(function(change) {
+            if (typeof obj[change.name] == 'object') {
+                observeNested(obj[change.name], callback);
+            }
+        });
+        callback.apply(this, arguments);
+    });
+}</code></pre>
+</div>
+
+
+<p>Now at first glance it would seem this doesn&rsquo;t work:</p>
+
+<div>
+  <pre><code class='javascript'>function observeNested(obj, callback) {
+    Object.observe(obj, function(changes){
+        changes.forEach(function(change) {
+            if (typeof obj[change.name] == 'object') {
+                observeNested(obj[change.name], callback);
+            }
+        });
+        callback.apply(this, arguments);
+    });
+}
+
+var model = {};
+
+// Which we then observe
+observeNested(model, function(changes){
+    changes.forEach(function(change) {
+        console.log(change.type, change.name, change.oldValue);
+    });
+});
+model.adding = 'a prop';
+model.nested = { obj: 'thing' };
+model.nested.obj = 'another thing';</code></pre>
+</div>
+
+
+<p>Still shows:</p>
+
+<div>
+  <pre><code class='javascript'>add adding undefined
+add nested undefined</code></pre>
+</div>
+
+
+<p>But then I remembered that (and I&rsquo;m quiting from the article):
+<code>Object.observe(), part of a future ECMAScript standard, is a method for asynchronously observing changes to JavaScript objects</code></p>
+
+<p>So in the case above since the two assignments to <code>model.nested</code> happen right after another, it only logs it as one event, If you were using promises to some other async mechanism it would work as advertised:</p>
+
+<div>
+  <pre><code class='javascript'>function observeNested(obj, callback) {
+    Object.observe(obj, function(changes){
+        changes.forEach(function(change) {
+            if (typeof obj[change.name] == 'object') {
+                observeNested(obj[change.name], callback);
+            }
+        });
+        callback.apply(this, arguments);
+    });
+}
+
+var model = {};
+
+// Which we then observe
+observeNested(model, function(changes){
+    changes.forEach(function(change) {
+        console.log(change.type, change.name, change.oldValue);
+    });
+});
+setTimeout(function() {
+    model.adding = 'a prop';
+}, 200);
+setTimeout(function() {
+    model.nested = { obj: 'thing' };
+}, 400);
+setTimeout(function() {
+    model.nested.obj = 'another thing';
+}, 600);</code></pre>
+</div>
+
+
+<p>Which shows:</p>
+
+<div>
+  <pre><code class='javascript'>add adding undefined
+add nested undefined
+update obj thing</code></pre>
+</div>
 
 
 
-
-
+]]></content>
+  </entry>
   
-</aside>
+  <entry>
+    <title type="html"><![CDATA[Unoptimize V8 for Easy Debugging]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/05/19/unoptimize-devtools-for-easy-debugging/"/>
+    <updated>2014-05-19T11:42:09-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/05/19/unoptimize-devtools-for-easy-debugging</id>
+    <content type="html"><![CDATA[<p>Every now and then I need to debug something in DevTools and I get this puzzling error:</p>
 
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - Moshe Kolodny -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
+<p><a href="http://i.imgur.com/nRvfrMy.png"><img src="http://i.imgur.com/nRvfrMy.png" alt="ReferenceError" /></a></p>
 
-</footer>
+<p>That&rsquo;s V8 optimizing the function and seeing that <code>thing</code> isn&rsquo;t used in the function and therefore not putting it into the closure scope. There are a couple of ways to break this optimization, one is to use <code>thing</code> somewhere in the debugging function, however the problem with this is that you must enumerate all the vars you want to inspect. An easier technique I&rsquo;ve found is to make it impossible for V8 to know what vars will be used in the function. What that entails is to just have a blank <code>eval</code> in the function somewhere (I usually put in right before the debugger statement):</p>
+
+<p><a href="http://i.imgur.com/wnFtgte.png"><img src="http://i.imgur.com/wnFtgte.png" alt="ReferenceError" /></a></p>
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[Future Proof Your Code With Promises and Promise.all]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/04/23/future-proof-your-code-with-promises/"/>
+    <updated>2014-04-23T11:50:39-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/04/23/future-proof-your-code-with-promises</id>
+    <content type="html"><![CDATA[<p>When starting out with async code there are a few option to manage the callback hell. The one gaining the most traction is promises.</p>
 
-<script type="text/javascript">
-      var disqus_shortname = 'secrets-blog';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+<p><small>I starting writing a promise-like library when I first heard of promises: <a href="https://github.com/kolodny/wttt">WTTT (When This Then That)</a></small></p>
 
+<p>I was playing around with socket.io and had to do some async code as follows:</p>
 
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
+<div>
+  <pre><code class='javascript'>socket.on('join', function(id, name, callback) {
+  socket.join(id);
+  socket.name = name;
+  var people = _.map(io.sockets.clients(room), function(socket) {
+    return {
+      id: socket.id,
+      name: socket.name,
+    };
+  });
+  callback(people);
+});</code></pre>
+</div>
 
 
+<p>Looking at the <a href="http://socket.io/#how-to-use">docs</a> show that I should be using an async version as follows:</p>
 
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
+<div>
+  <pre><code class='javascript'>socket.on('join', function(id, name, callback) {
+  socket.join(id) // this is still a sync function
+  socket.set('name', name, function() {
+    var people = ???;
+    callback(people);
+  });
+});</code></pre>
+</div>
 
 
-</body>
-</html>
+<p>As you can see there&rsquo;s some magic that we need to do. Enter promises.</p>
+
+<p>The basic usage is as follows</p>
+
+<div>
+  <pre><code class='javascript'>var promise = new Promise(function(resolve, reject) {
+  setTimeout(function() {
+    resolve(&quot;It's now two seconds later&quot;);
+  }, 2000);
+});
+promise.then(function(value) {
+  // value === &quot;It's now two seconds later&quot;;
+});</code></pre>
+</div>
+
+
+<p>The library that I&rsquo;m using is <a href="https://github.com/petkaantonov/bluebird">bluebird</a>, they provide a <code>Promise.promisifyAll</code> method which takes an object
+and converts all it&rsquo;s methods that have node style callbacks (<code>function callback(err, result) {...}</code>) as a last argument to promises</p>
+
+<p>Promises by itself is not really that usefull, but the real power comes when you need to do many things at once, that&rsquo;s what Promise.all is for</p>
+
+<div>
+  <pre><code class='javascript'>var resolveTo = function(thing) {
+  return new Promise(function(resolve) {
+    resolve(thing);
+  });
+};
+var promises = [resolveTo('Apple'), resolveTo('Orange')]
+Promise.all(promises).then(function(results) {
+  // results === ['Apple', 'Orange'];
+});</code></pre>
+</div>
+
+
+<p><code>Promise.all</code> also can take a non-thenable value and use it as is for example</p>
+
+<div>
+  <pre><code class='javascript'>var promises = [resolveTo('Apple'), resolveTo('Orange'), 42]
+Promise.all(promises).then(function(results) {
+  // results === ['Apple', 'Orange', 42];
+});</code></pre>
+</div>
+
+
+<p>Armed with this we can now write the above socket code as follows</p>
+
+<div>
+  <pre><code class='javascript'>socket.on('join', function(id, name, callback) {
+  socket.join(id) // this is still a sync function
+  socket.setAsync('name').then(function() {
+    getPeopleAsync(id).then(function(people) {
+      callback(people);
+    });
+  });
+});
+function getPeopleAsync(roomId) {
+  return new Promise(function(resolve, reject) {
+    var people = io.sockets.clients(room);
+    var promises = [];
+    people.forEach(function(socket) {
+      promises.push(
+        new Promise(function(resolveInner) {
+          Promise.all([socket.id, socket.getAsync('name')]).then(function(results) {
+            resolveInner({id: results[0], name: results[1]});
+          });
+        });
+      );
+    });
+    Promise.all(promises).then(function(people) {
+      resolve(people);
+    });
+  });
+}</code></pre>
+</div>
+
+
+<p>Which <code>getPeopleAsync</code> can be refactored to:</p>
+
+<div>
+  <pre><code class='javascript'>function getPeopleAsync(roomId) {
+  return new Promise(function(resolve, reject) {
+    var people = io.sockets.clients(room);
+    var promises = [];
+    people.forEach(function(socket) {
+      promises.push(
+        new Promise(function(resolveInner) {
+          Promise.all([socket.id, socket.getAsync('name')]).then(function(results) {
+            resolveInner({id: results[0], name: results[1]});
+          })
+        })
+      );
+    });
+    Promise.all(promises).then(resolve);
+  });
+}</code></pre>
+</div>
+
+
+<p>Which <code>getPeopleAsync</code> can be refactored to:</p>
+
+<div>
+  <pre><code class='javascript'>function getPeopleAsync(roomId) {
+  var people = io.sockets.clients(room);
+  var promises = [];
+  people.forEach(function(socket) {
+    promises.push(
+      new Promise(function(resolve) {
+        Promise.all([socket.id, socket.getAsync('name')]).then(function(results) {
+          resolve({id: results[0], name: results[1]});
+        })
+      })
+    );
+  });
+  return Promise.all(promises)
+}</code></pre>
+</div>
+
+
+<p>Now this lets us use Promise, notably Promise.all without having to worry about code ever changing from sync to async, consider:</p>
+
+<div>
+  <pre><code class='javascript'>Promise.all(socket.getAsync('name'), socket.getAsync('joined'), serverId, personRecord).then(function(results) {
+  // do things with results
+});</code></pre>
+</div>
+
+
+<p>and</p>
+
+<div>
+  <pre><code class='javascript'>Promise.all(socket.getAsync('name'), socket.getAsync('joined'), serverId, db.getPersonAsync(personId)).then(function(results) {
+  // do things with results
+  // absolutely no changes needed here
+});</code></pre>
+</div>
+
+
+<p>Happy coding</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[See Return Value in DevTools]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/04/01/see-return-value-in-devtools/"/>
+    <updated>2014-04-01T11:05:39-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/04/01/see-return-value-in-devtools</id>
+    <content type="html"><![CDATA[<p>I noticed recently that Dev Tools lets you take a look at what a function is about to return. Take a look at this screen:
+<img src="http://i.imgur.com/aL9QiSb.png" alt="see return value" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My Favorite jQuery Plugin Template]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2013/12/27/my-favorite-jquery-plugin-template/"/>
+    <updated>2013-12-27T10:57:16-05:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2013/12/27/my-favorite-jquery-plugin-template</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve dabbled quite a bit in jQuery and writing plugins for it. I&rsquo;ve played around with quite a few different ways to start a plugin, and now I&rsquo;ve got a new favorite:</p>
+
+<div>
+  <pre><code class='javascript'>;(function($) {
+  // multiple plugins can go here
+  (function(pluginName) {
+    var defaults = {
+      color: 'black',
+      testFor: function(div) {
+        return true;
+      }
+    };
+    $.fn[pluginName] = function(options) {
+      options = $.extend(true, {}, defaults, options);
+            
+      return this.each(function() {
+        var elem = this,
+          $elem = $(elem);
+
+        // heres the guts of the plugin
+          if (options.testFor(elem)) {
+            $elem.css({
+              borderWidth: 1,
+              borderStyle: 'solid',
+              borderColor: options.color
+            });
+          }
+      });
+    };
+    $.fn[pluginName].defaults = defaults;
+  })('borderize');
+})(jQuery);</code></pre>
+</div>
+
+
+<p>Now let&rsquo;s see how we would use it.</p>
+
+<div>
+  <pre><code class='javascript'>$('div').borderize();
+$('div').borderize({color: 'red'});</code></pre>
+</div>
+
+
+
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/EVL22/embedded/result,js,html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+
+<p> Here&rsquo;s some of the reasons that I like this technique</p>
+
+<ol>
+<li>You can still use a default option inside of a override (similar to calling a parent property in class based programming)</li>
+<li>Easily change the name of the plugin as long as we use pluginName all over (also there&rsquo;s an insignificant minification advantage of that).</li>
+<li>Cleaner (at least in my opinion)</li>
+</ol>
+
+
+<p> Point #1 is huge, let&rsquo;s see an example that. Let&rsquo;s say we want to override the <code>testFor</code> function but still want the option of defaulting to the original behaviour</p>
+
+<div>
+  <pre><code class='javascript'>$('.borderize').borderize({
+    testFor: function(elem) {
+        var $elem = $(elem);
+        if (elem.is('.inactive')) {
+            return false;
+        } else {
+            // calling &quot;parent&quot; function
+            return $.fn.borderize.defaults.testFor.apply(this, arguments);
+        }
+    }
+});</code></pre>
+</div>
+
+
+<p>We can even do this with regular properties like this</p>
+
+<div>
+  <pre><code class='javascript'>var someVarThatMayBeSet = false;
+/* code ... */
+
+$('.borderize').borderize({
+    color: someVarThatMayBeSet ? 'red' : $.fn.borderize.defaults.color
+});</code></pre>
+</div>
+
+
+
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/GDqrC/embedded/result,js,html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+
+<p>Do you have a different style that you like? Leave a comment below</p>
+
+<p>Edit I&rsquo;ve changed the <code>$.each</code> call to <code>$.extend(true, {}, defaults, options);</code> based on <a href="https://news.ycombinator.com/item?id=6971361">phlyingpenguin</a> comment.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Beating Amazon]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2013/11/25/beating-amazon/"/>
+    <updated>2013-11-25T21:04:31-05:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2013/11/25/beating-amazon</id>
+    <content type="html"><![CDATA[<p>Everytime I see a site that <strong>requires</strong> user interaction, it gives me a chance to practice some hackery.
+Case in point: <a href="http://www.amazon.com/Black-Friday/b/ref=bf2013_bunk_galaxy?node=384082011">Amazon black friday deals.</a></p>
+
+<p>Amazon wants you to wait on the page counting down like you have nothing better to do.
+As a programmer I&rsquo;d rather make a script to do that for me.</p>
+
+<p>It brought me back a bit as their version of jQuery is 1.6.4. Anyway here&rsquo;s the script, you can
+open the javascript console with <code>Ctrl + Shift + J</code> then paste the code below in or you can use
+the bookmarklet:</p>
+
+<h1>
+    <small><small><small>bookmarklet:</small></small></small>
+    <a onclick="alert('Drag this to your bookmarks bar and when you\'re on the black friday page click it');return false" href='javascript:(function($){function re__waitForIt__serve($item){var interval=setInterval(function(){var $buyButton=$item.find(".btn");if($buyButton.length){clearInterval(interval);$buyButton[0].click();setTimeout(function(){alert("Item (hopefully) available to buy!");$item.css("outline","1px solid green")},5E3)}},100)}jQuery("body").delegate("li[id]","mouseenter.grabber",function(){var $this=$(this);$this.css("outline","1px solid red");$this.delegate("*","click.grabber",function(){re__waitForIt__serve($this);$this.css("outline", "1px solid blue");$("*").unbind(".grabber");alert("All set to buy item");return false});$this.bind("mouseleave.grabber",function(){$this.css("outline","none")})})})(jQuery);'>Amazon Clicker</a>
+</h1>
+
+
+
+
+<div>
+  <pre><code class='javascript'>(function($) {
+    function re__waitForIt__serve($item) {
+        var interval = setInterval(function() {
+            var $buyButton = $item.find('.btn');
+            if ($buyButton.length) {
+                clearInterval(interval);
+                $buyButton[0].click();
+                setTimeout(function() {
+                    alert('Item (hopefully) available to buy!');
+                    $item.css('outline', '1px solid green');
+                }, 5000)
+            }
+        }, 100);
+    }
+    jQuery('body').delegate('li[id]', 'mouseenter.grabber', function() {
+        var $this = $(this);
+        $this.css('outline', '1px solid red');
+        $this.delegate('*', 'click.grabber', function() {
+            re__waitForIt__serve($this);
+            $this.css('outline', '1px solid blue');
+            $('*').unbind('.grabber')
+            alert('All set to buy item');
+            return false;
+        });
+        $this.bind('mouseleave.grabber', function() { $this.css('outline', 'none'); });
+    });
+})(jQuery);</code></pre>
+</div>
+
+
+<p>(Tested in Chrome)</p>
+
+<p>Think there&rsquo;s a better way to do this? Did you ever have to do something like this?<br/>
+Leave a comment below</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Useful Snippets]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2013/11/24/useful-snippets/"/>
+    <updated>2013-11-24T14:25:14-05:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2013/11/24/useful-snippets</id>
+    <content type="html"><![CDATA[<p>I recently found <a href="http://bgrins.github.io/devtools-snippets/">this useful page for devtools snippets</a></p>
+
+<p>I never really used snippets before (I do have a ton of bookmarklets though), and I wanted to
+incorporate all the snippets on that page. There really isn&rsquo;t any built in way to do that, but since practically
+everything in Chrome is exposed we can hack a way into it.</p>
+
+<p>First off let&rsquo;s see what we have already. Open dev-tools and take a look at the snippets.</p>
+
+<p><a href="http://i.imgur.com/AI7ch4d.png"><img src="http://i.imgur.com/AI7ch4d.png" alt="check for snippets" /></a></p>
+
+<p>If it doesn&rsquo;t open in a new window then click the circled icon to open dev-tools in a new window.</p>
+
+<p>Now you should have something that looks like this:</p>
+
+<p><a href="http://i.imgur.com/1xL13sh.png"><img src="http://i.imgur.com/1xL13sh.png" alt="dev-tools in a new window" /></a></p>
+
+<p>Now comes the cool part, we&rsquo;re going to open devtools on the devtools window. With the active window the
+dev-tools window click <code>Ctrl + Shift + J</code> and you should see this:</p>
+
+<p><a href="http://i.imgur.com/dAO8Rh3.png"><img src="http://i.imgur.com/dAO8Rh3.png" alt="inception dev-tools" /></a></p>
+
+<p>Now go to the Resources tab and Local Storage, there may be more then one but it should be easy to figure
+out which one you need, then go to the scriptSnippets object:</p>
+
+<p><a href="http://i.imgur.com/pcpPbsM.png"><img src="http://i.imgur.com/pcpPbsM.png" alt="scriptSnippets" /></a></p>
+
+<p>Hopefully you can see where this is going. Let&rsquo;s open up a dev-tools window on the second one by clicking
+<code>Ctrl + Shift + J</code> on the second window, I resized a bit to make it more manageable:</p>
+
+<p><a href="http://i.imgur.com/6vSHVH0.png"><img src="http://i.imgur.com/6vSHVH0.png" alt="" /></a></p>
+
+<p>Now let&rsquo;s head over to <a href="http://bgrins.github.io/devtools-snippets/">http://bgrins.github.io/devtools-snippets/</a> and scrape the snippets. Open up the
+console on that page and paste:</p>
+
+<div>
+  <pre><code class='javascript'>&gt; var snippetsWrappers = document.getElementsByClassName('snippet-wrapper');
+  var snippets = [];
+  for (var i = 0; i &lt; snippetsWrappers.length; i++) {
+      snippets.push({
+          name: snippetsWrappers[i].id,
+          content: '//' + snippetsWrappers[i].childNodes[0].innerText.replace('\n', '\n//') +
+              '\n' + snippetsWrappers[i].childNodes[1].innerText
+      });
+  }
+  copy(JSON.stringify(snippets));</code></pre>
+</div>
+
+
+<p>We now have a stringified version of the snippets in the system clipboard using the magic of
+<a href="../../../../2013/10/16/devtools-copy-to-clipboard/">copy on the console</a></p>
+
+<p>Now that we have that in the clipboard we can now close that window.  Now we need to merge in what we
+have in the clipboard with the current snippets, one way to do that is with this (in the right hand
+side window):</p>
+
+<div>
+  <pre><code class='javascript'>&gt; var snippetsToAdd = JSON.parse(prompt('Hit ctrl + v and enter'));
+  var currentSnippets = JSON.parse(localStorage.scriptSnippets);
+  var nextId = Math.max.apply(Math, currentSnippets.map(function(obj) { return obj.id })) + 1;
+  for (var i = 0; i &lt; snippetsToAdd.length; i++) {
+      currentSnippets.push({
+          name: snippetsToAdd[i].name,
+          content: snippetsToAdd[i].content,
+          id: nextId++
+      });
+  }
+  localStorage.scriptSnippets = JSON.stringify(currentSnippets);</code></pre>
+</div>
+
+
+<p><a href="http://i.imgur.com/ZXzD3Y3.png"><img src="http://i.imgur.com/ZXzD3Y3.png" alt="merging in snippets" /></a></p>
+
+<p>You&rsquo;ll get a prompt and you need to paste in the contents of the clipboard. This was the easiest way I could
+think of to share data between windows</p>
+
+<p>If all went as planned then put focus on the bottom left window, hit F5 and you should now see:</p>
+
+<p><a href="http://i.imgur.com/PGoqrjB.png"><img src="http://i.imgur.com/PGoqrjB.png" alt="Success!!" /></a></p>
+
+<p>You can see that the snippets are there in the top left window.</p>
+
+<p>Play around while you&rsquo;re in there,  hopefully you&rsquo;ll learn about the internals of how dev-tools work</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Make News More Fun]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2013/11/10/make-news-more-fun/"/>
+    <updated>2013-11-10T08:33:00-05:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2013/11/10/make-news-more-fun</id>
+    <content type="html"><![CDATA[<p>I just read <a href="http://xkcd.com/1288/">this xkcd</a> and thought, <em>I never again will have to read boring news</em>
+<a href="http://xkcd.com/1288/"><img src="http://imgs.xkcd.com/comics/substitutions.png" title="INSIDE ELON MUSK'S NEW ATOMIC CAT" alt="Substitutions"></a></p>
+
+<p>So I made a quick bookmarklet accomplish just that</p>
+
+<h1><a href='javascript:(function(){var dict={"Witnesses":"these dudes I know","Allegedly":"kinda probably","New study":"tumblr post","Rebuild":"avenge","Space":"spaaace","Google Glass":"virtual Boy","Smartphone":"pokedex","Electric":"atomic","Senator":"elf-lord","Car":"cat","Election":"eating contest","Congressional leaders":"river spirits","Homeland security":"Homestar Runner","Could not be reached for comment":"is guilty and everyone knows it"};var dictRegex=new RegExp("(.)\\s*\\b("+Object.keys(dict).join("|").replace(/\s\s*/g, "\\s*")+")","gi");var dictReplacers=[];for(var i in dict)dictReplacers.push([new RegExp(i.replace(/\s\s*/g,"\\s"),"i"),dict[i]]);var textNodes=[];var all=document.getElementsByTagName("*");for(var i=0;i<all.length;i++)for(var j=0;j<all[i].childNodes.length;j++)if(all[i].childNodes[j].nodeType===3)textNodes.push(all[i].childNodes[j]);for(i=0;i<textNodes.length;i++)if(textNodes[i]&&textNodes[i].nodeValue)textNodes[i].nodeValue=textNodes[i].nodeValue.replace(dictRegex,function(all,preChar){console.log(preChar); for(var j=0;j<dictReplacers.length;j++)if(dictReplacers[j][0].test(all))return preChar+(!/[a-z\x27]/i.test(preChar)?dictReplacers[j][1].charAt(0).toUpperCase()+dictReplacers[j][1].slice(1):dictReplacers[j][1])})})();'>News Interestinger</a></h1>
+
+
+<p>Hint: Click it and watch the text in the code change.</p>
+
+<p>Source:</p>
+
+<div>
+  <pre><code class='javascript'>var dict = {
+    &quot;Witnesses&quot;: &quot;these dudes I know&quot;,
+    &quot;Allegedly&quot;: &quot;kinda probably&quot;,
+    &quot;New study&quot;: &quot;tumblr post&quot;,
+    &quot;Rebuild&quot;: &quot;avenge&quot;,
+    &quot;Space&quot;: &quot;spaaace&quot;,
+    &quot;Google Glass&quot;: &quot;virtual Boy&quot;,
+    &quot;Smartphone&quot;: &quot;pokedex&quot;,
+    &quot;Electric&quot;: &quot;atomic&quot;,
+    &quot;Senator&quot;: &quot;elf-lord&quot;,
+    &quot;Car&quot;: &quot;cat&quot;,
+    &quot;Election&quot;: &quot;eating contest&quot;,
+    &quot;Congressional leaders&quot;: &quot;river spirits&quot;,
+    &quot;Homeland security&quot;: &quot;Homestar Runner&quot;,
+    &quot;Could not be reached for comment&quot;: &quot;is guilty and everyone knows it&quot;
+}
+var dictRegex = new RegExp('(.)\\s*\\b(' + Object.keys(dict).join('|').replace(/\s\s*/g, '\\s*') + ')', 'gi');
+var dictReplacers = [];
+for (var i in dict) {
+    dictReplacers.push([new RegExp(i.replace(/\s\s*/g, '\\s'), 'i'), dict[i]])
+}
+var textNodes = [];
+var all = document.getElementsByTagName('*');
+for (var i = 0; i &lt; all.length; i++) {
+    for (var j = 0; j &lt; all[i].childNodes.length; j++) {
+        if (all[i].childNodes[j].nodeType === 3) {            
+            textNodes.push(all[i].childNodes[j]);
+        }
+    }
+}
+for (i = 0; i &lt; textNodes.length; i++) {
+    if (textNodes[i] &amp;&amp; textNodes[i].nodeValue) {
+        textNodes[i].nodeValue = textNodes[i].nodeValue.replace(dictRegex, function(all, preChar) {
+            console.log(preChar)
+            for (var j = 0; j &lt; dictReplacers.length; j++) {
+                if (dictReplacers[j][0].test(all)) {
+                    return preChar + (!/[a-z\x27]/i.test(preChar) ?
+                        dictReplacers[j][1].charAt(0).toUpperCase() + dictReplacers[j][1].slice(1) :
+                        dictReplacers[j][1])
+                }
+            }
+        });
+    }
+}</code></pre>
+</div>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Circular Doubly Linked List]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2013/10/18/circular-doubly-linked-list/"/>
+    <updated>2013-10-18T11:10:00-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2013/10/18/circular-doubly-linked-list</id>
+    <content type="html"><![CDATA[<p>I was working on a cycling plugin for javascript and kept getting bogged down by accessing the prev and next elements in the array. I kept having to do things like:</p>
+
+<div>
+  <pre><code class='javascript'>function step() {
+    var currentItem = items[currentIndex];
+    var nextItem = items[(currentIndex + 1) % items.length];
+    var prevItem = items[(items.length + currentIndex - 1) % items.length];
+    // more code
+    index = (index + 1) % items.length
+}</code></pre>
+</div>
+
+
+<p>While this is doable it just seems like a pain.<br/>
+Giving it more thought I realized that a <a href="http://en.wikipedia.org/wiki/Linked_list#Circular_list">circular doubly linked list</a> would be a great solution to this:</p>
+
+<div data-height="257" data-theme-id="1527" data-slug-hash="cGdke" data-user="kolodny" data-default-tab="js" class='codepen'><pre><code>
+
+var list = [{label: &#x27;first&#x27;}, {label: &#x27;second&#x27;}, {label: &#x27;third&#x27;}];
+var circled = circleLink(list);
+
+assert(circled[0].next === circled[1]);
+assert(circled[1].next === circled[2]);
+assert(circled[2].next === circled[0]);
+
+assert(circled[0].prev === circled[2]);
+assert(circled[1].prev === circled[0]);
+assert(circled[2].prev === circled[1]);
+
+document.write(circled[0].index + &#x27;&lt;br&gt;&#x27;);
+document.write(circled[1].index + &#x27;&lt;br&gt;&#x27;);
+document.write(circled[2].index + &#x27;&lt;br&gt;&#x27;);
+document.write(circled[0].next.next.next.prev.prev.index + &#x27;&lt;br&gt;&#x27;);
+
+function circleLink(array) {
+  var linkedListCircle = []
+  for (var i = 0; i &lt; array.length; i++) {
+    linkedListCircle[i] = array[i];
+    linkedListCircle[i].index = i;
+    if (i &gt; 0) {
+      linkedListCircle[i].prev = linkedListCircle[i - 1];
+    }
+  }
+  linkedListCircle[0].prev = linkedListCircle[i - 1]
+  for (var i = 0; i &lt; array.length - 1; i++) {
+    linkedListCircle[i].next = linkedListCircle[i + 1];
+  }
+  linkedListCircle[i].next = linkedListCircle[0];
+  return linkedListCircle;
+}
+function assert(assertion) { document.write((assertion ? true : false) + &#x27;&lt;br&gt;&#x27;) }
+</code></pre>
+<p>See the Pen <a href='http://codepen.io/kolodny/pen/cGdke'>%= penName %></a> by Moshe Kolodny (<a href='http://codepen.io/kolodny'>@kolodny</a>) on <a href='http://codepen.io'>CodePen</a></p>
+</div>
+
+
+<script async src="https://codepen.io/assets/embed/ei.js"></script>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Devtools Copy to Clipboard]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2013/10/16/devtools-copy-to-clipboard/"/>
+    <updated>2013-10-16T11:08:00-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2013/10/16/devtools-copy-to-clipboard</id>
+    <content type="html"><![CDATA[<p>I was playing around with devtools and i saw in the autocomplete list of functions had <code>copy()</code><br/>
+It does what it sounds like it does (copies text to the clipboard)</p>
+
+<div>
+  <pre><code class='javascript'>&gt; copy(&quot;I'm about to hit ctrl+v&quot;)
+undefined
+&gt; I'm about to hit ctrl+v</code></pre>
+</div>
+
+
+<p>Very useful for when you need to manipulate large chunks of text.</p>
+
+<p>Works in Devtools and Firebug (at least)</p>
+]]></content>
+  </entry>
+  
+</feed>

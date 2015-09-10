@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Jquery | Moshe's Blog]]></title>
+  <link href="http://kolodny.github.io/blog/blog/categories/jquery/atom.xml" rel="self"/>
+  <link href="http://kolodny.github.io/blog/"/>
+  <updated>2015-09-10T10:28:56-04:00</updated>
+  <id>http://kolodny.github.io/blog/</id>
+  <author>
+    <name><![CDATA[Moshe Kolodny]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[My Favorite jQuery Plugin Template]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2013/12/27/my-favorite-jquery-plugin-template/"/>
+    <updated>2013-12-27T10:57:16-05:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2013/12/27/my-favorite-jquery-plugin-template</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve dabbled quite a bit in jQuery and writing plugins for it. I&rsquo;ve played around with quite a few different ways to start a plugin, and now I&rsquo;ve got a new favorite:</p>
+
+<p><div>
+  <pre><code class='javascript'>;(function($) {
+  // multiple plugins can go here
+  (function(pluginName) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var defaults = {
+  color: 'black',
+  testFor: function(div) {
+    return true;
+  }
+};
+$.fn[pluginName] = function(options) {
+  options = $.extend(true, {}, defaults, options);
+
+  return this.each(function() {
+    var elem = this,
+      $elem = $(elem);
+
+    // heres the guts of the plugin
+      if (options.testFor(elem)) {
+        $elem.css({
+          borderWidth: 1,
+          borderStyle: 'solid',
+          borderColor: options.color
+        });
+      }
+  });
+};
+$.fn[pluginName].defaults = defaults;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  })(&amp;lsquo;borderize&amp;rsquo;);
+})(jQuery);</code></pre>
+</div>
+</p>
+
+<p>Now let&rsquo;s see how we would use it.
+<div>
+  <pre><code class='javascript'>$(&amp;lsquo;div&amp;rsquo;).borderize();
+$(&amp;lsquo;div&amp;rsquo;).borderize({color: &amp;lsquo;red&amp;rsquo;});</code></pre>
+</div>
+</p>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/EVL22/embedded/result,js,html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+
+<p> Here&rsquo;s some of the reasons that I like this technique</p>
+
+<ol>
+<li>You can still use a default option inside of a override (similar to calling a parent property in class based programming)</li>
+<li>Easily change the name of the plugin as long as we use pluginName all over (also there&rsquo;s an insignificant minification advantage of that).</li>
+<li>Cleaner (at least in my opinion)</li>
+</ol>
+
+
+<p> Point #1 is huge, let&rsquo;s see an example that. Let&rsquo;s say we want to override the <code>testFor</code> function but still want the option of defaulting to the original behaviour</p>
+
+<p><div>
+  <pre><code class='javascript'>$(&amp;lsquo;.borderize&amp;rsquo;).borderize({&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;testFor: function(elem) {
+    var $elem = $(elem);
+    if (elem.is('.inactive')) {
+        return false;
+    } else {
+        // calling &quot;parent&quot; function
+        return $.fn.borderize.defaults.testFor.apply(this, arguments);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});&lt;/p&gt;
+
+&lt;p&gt;</code></pre>
+</div>
+</p>
+
+<p>We can even do this with regular properties like this
+<div>
+  <pre><code class='javascript'>var someVarThatMayBeSet = false;
+/&lt;em&gt; code &amp;hellip; &lt;/em&gt;/&lt;/p&gt;
+
+&lt;p&gt;$(&amp;lsquo;.borderize&amp;rsquo;).borderize({&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;color: someVarThatMayBeSet ? 'red' : $.fn.borderize.defaults.color
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});</code></pre>
+</div>
+</p>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/GDqrC/embedded/result,js,html" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+
+<p>Do you have a different style that you like? Leave a comment below</p>
+
+<p>Edit I&rsquo;ve changed the <code>$.each</code> call to <code>$.extend(true, {}, defaults, options);</code> based on <a href="https://news.ycombinator.com/item?id=6971361">phlyingpenguin</a> comment.</p>
+]]></content>
+  </entry>
+  
+</feed>

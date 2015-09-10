@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Node | Moshe's Blog]]></title>
+  <link href="http://kolodny.github.io/blog/blog/categories/node/atom.xml" rel="self"/>
+  <link href="http://kolodny.github.io/blog/"/>
+  <updated>2015-09-10T10:28:56-04:00</updated>
+  <id>http://kolodny.github.io/blog/</id>
+  <author>
+    <name><![CDATA[Moshe Kolodny]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Writing Async Javascript Code in Sync Format - Part 1]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/06/26/semi-async-js/"/>
+    <updated>2014-06-26T11:32:44-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/06/26/semi-async-js</id>
+    <content type="html"><![CDATA[<p>Writing async code is hard when not done properly. However there are ways to make it a breeze. One of them is to use promises and not have to worry about code being async or not.</p>
+
+<p>I was looking around at different things and came across <a href="https://github.com/koajs/koa">koa</a> and got inspired to try a similar idea.</p>
+
+<p>The basic idea of Koa is that when you need some async functionality you yield an async thingy like a promise or something similar and then koa waits for it to resolve and then continues your program injecting the new value into the function.</p>
+
+<p>Sounds complicated? Let&rsquo;s try an example (all examples will only run in FF unless Chrome decides to support generators)</p>
+
+<p>Let&rsquo;s start with a simple generator.</p>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/2QsBH/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+
+<p>As you can see the syntax is <code>function *() {}</code> and you need to instantiate a generator before you can use it.
+For more info on the basics of generators see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*">MDN</a></p>
+
+<p>A cool thing about generators is that you can inject a value back into the generator function like so:</p>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/2QsBH/1/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+
+<p>You actually can&rsquo;t inject something into the first <code>.next()</code> call, if you try you get this error: <code>TypeError: attempt to send "a" to newborn generator</code></p>
+
+<p>Using just these two concepts and the very basics about Promises, we can write something that:</p>
+
+<ol>
+<li>Runs a generator until control is given back</li>
+<li>If result if promise like, then resolve it and inject the resolved value back to the generator</li>
+<li>Rinse and repeat.</li>
+</ol>
+
+
+<p>Let&rsquo;s start to write just that. Here&rsquo;s what out program will look like:</p>
+
+<p><div>
+  <pre><code class='javascript'>function *program() {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var rand;
+rand = yield getRandAsync();
+console.log('first time around = ' + rand);
+rand = yield getRandAsync();
+console.log('second time around = ' + rand);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;p&gt;function getRandAsync() {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return Promise.resolve(Math.random())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}&lt;/p&gt;
+
+&lt;p&gt;run(program());</code></pre>
+</div>
+</p>
+
+<p>Now all we need to do is write the <code>run</code> function:</p>
+
+<p><div>
+  <pre><code class='javascript'>function run(gen) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;step();
+
+function step(value) {
+    var result = gen.next(value);
+    if (result.value instanceof Promise) {
+        result.value.then(step);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}</code></pre>
+</div>
+</p>
+
+<p>Putting that all together:</p>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/JHFd5/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+
+<p>Now a couple of nice thigs to have. Let&rsquo;s assume that sometime in the future <code>getRandAsync</code> is changed to just return a value and not a promise, we should handle that:</p>
+
+<p><div>
+  <pre><code class='javascript'>function run(gen) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;step();
+
+function step(value) {
+    var result = gen.next(value);
+    if (result.value instanceof Promise) {
+        result.value.then(step);
+    } else if (!result.done) {
+        step(result.value);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}</code></pre>
+</div>
+</p>
+
+<p>Easy enough. Now how would we handle concurrent async functions? Well the Promise object has a method <code>all</code> which handles it nicely, we just need to utilize it (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">MDN</a> ctrl+f <code>Promise.all</code>):</p>
+
+<p><div>
+  <pre><code class='javascript'>function run(gen) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;step();
+
+function step(value) {
+    var result = gen.next(value);
+    if (result.value instanceof Promise) {
+        result.value.then(step);
+    } else if (result.value instanceof Array) {
+        Promise.all(result.value).then(step);
+    } else if (!result.done) {
+        step(result.value);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}</code></pre>
+</div>
+</p>
+
+<p>Now we can yield an array of promises to <code>run</code> and <code>Promise.all</code> will handle them. <a href="http://kolodny.github.io/blog/blog/2014/04/23/future-proof-your-code-with-promises/">The great thing about <code>Promise.all</code> is that it will handle an array of non promises just as well</a></p>
+
+<p>putting that all together we get a very powerfull way to write javascript:</p>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/XKYVB/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+
+<p><a href="https://gist.github.com/kolodny/6691380b57abd5b56251"><strong>Gist</strong></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Require a Promise]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/06/09/require-a-promise/"/>
+    <updated>2014-06-09T15:25:18-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/06/09/require-a-promise</id>
+    <content type="html"><![CDATA[<p>I was recently asked how to make a node module that needs to do a database lookup or something else before it can give you an API. The main problem is that <code>require</code> is synchronize and doesn&rsquo;t have a concept of callback or a mechanism to wait for a response The are a couple of ways to solve this, I&rsquo;ll first go through the standard solution and then how I would do it.</p>
+
+<p>The standard way people solve this is by having the API take a callback:</p>
+
+<p><div>
+  <pre><code class='javascript'>var gister = require(&amp;lsquo;gister&amp;rsquo;);&lt;/p&gt;
+
+&lt;p&gt;gister(function(err, create) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (err) throw err;
+create(fileContents);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});</code></pre>
+</div>
+</p>
+
+<p>Now this is easy to read and makes a lot of sense, but you run into a problem of when you have more than one module like this:</p>
+
+<p><div>
+  <pre><code class='javascript'>var gister = require(&amp;lsquo;gister&amp;rsquo;);
+var snippeter = require(&amp;lsquo;snippeter&amp;rsquo;);
+var apis = {};
+var ticks = 2;&lt;/p&gt;
+
+&lt;p&gt;gister(function(err, create) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (err) throw err;
+apis.gister = create;
+if (--ticks === 0) ready(apis);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});
+snippeter(function(err, create) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (err) throw err;
+apis.snippeter = create;
+if (--ticks === 0) ready(apis);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});
+function ready(apis) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// apis.gister
+// apis.snippeter
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;}</code></pre>
+</div>
+</p>
+
+<p>This definitly doesn&rsquo;t scale, fortunately we can solve this using the magic of <a href="http://kolodny.github.io/blog/blog/2014/04/23/future-proof-your-code-with-promises/"><strong>Promises</strong></a></p>
+
+<p>File index.js:
+<div>
+  <pre><code class='javascript'>var Promise = require(&amp;ldquo;bluebird&amp;rdquo;);&lt;/p&gt;
+
+&lt;p&gt;var soon = require(&amp;lsquo;./soon.js&amp;rsquo;);&lt;/p&gt;
+
+&lt;p&gt;Promise.all([soon]).then(function(soon) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;console.log(soon);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});</code></pre>
+</div>
+</p>
+
+<p>File soon.js
+<div>
+  <pre><code class='javascript'>var Promise = require(&amp;ldquo;bluebird&amp;rdquo;);&lt;/p&gt;
+
+&lt;p&gt;var ret = {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;obj: 'to return'
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;};&lt;/p&gt;
+
+&lt;p&gt;module.exports = new Promise(function(resolve, reject) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;setTimeout(function() {
+    if (Math.random() &amp;lt; .1) {
+        console.log('about to reject');
+        reject(new Error('Db error'));
+        console.log('rejected');
+    } else {
+        console.log('about to resolve');
+        resolve(ret);
+        console.log('resolved');
+    }
+}, 5000);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;});&lt;/p&gt;
+
+&lt;p&gt;//module.exports = ret;</code></pre>
+</div>
+</p>
+
+<p>Now the cool thing about doing it this way is that we can switch back to a synchronize way of loading without having to change any code. We can simulate this by uncommenting the last line <code>//module.exports = ret;</code> and it will still run the same</p>
+]]></content>
+  </entry>
+  
+</feed>

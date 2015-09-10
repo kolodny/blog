@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Dev-tools | Moshe's Blog]]></title>
+  <link href="http://kolodny.github.io/blog/blog/categories/dev-tools/atom.xml" rel="self"/>
+  <link href="http://kolodny.github.io/blog/"/>
+  <updated>2015-09-10T10:28:56-04:00</updated>
+  <id>http://kolodny.github.io/blog/</id>
+  <author>
+    <name><![CDATA[Moshe Kolodny]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Solving the "Where Did This Tab Come From?" Question]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2015/01/20/solving-the-where-did-this-tab-come-from-question/"/>
+    <updated>2015-01-20T20:07:03-05:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2015/01/20/solving-the-where-did-this-tab-come-from-question</id>
+    <content type="html"><![CDATA[<p>Sometimes I find myself with long lived tabs and I don&rsquo;t always remember how I wound up on some of those pages.</p>
+
+<p>Here&rsquo;s a neat little trick I discovered today while trying to find out if I should share an article with someone or if they already shared it with me.</p>
+
+<p>First things first, <a href="https://developer.chrome.com/devtools#access">open dev-tools</a></p>
+
+<p>Then go to the network panel <img src="http://i.imgur.com/PFYhqel.png" alt="network panel" /></p>
+
+<p>Now refresh the page and scroll to the top of the list of resources and click the top one <img src="http://i.imgur.com/NRqEsZd.png" alt="referer" /></p>
+
+<p>Under the referer request header you should see how you wound up on that page.</p>
+
+<hr />
+
+<p><small>
+Thanks for <a href="?#comment-1805577800">mkoldnd</a> for inspiring this bookmarklet <strong><a href="javascript:(function()%7Bprompt(%22The%20referer%20for%20this%20page%20is:%22,document.referrer)%7D)()%3B">Referer</a></strong>
+</small></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unoptimize V8 for Easy Debugging]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/05/19/unoptimize-devtools-for-easy-debugging/"/>
+    <updated>2014-05-19T11:42:09-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/05/19/unoptimize-devtools-for-easy-debugging</id>
+    <content type="html"><![CDATA[<p>Every now and then I need to debug something in DevTools and I get this puzzling error:</p>
+
+<p><a href="http://i.imgur.com/nRvfrMy.png"><img src="http://i.imgur.com/nRvfrMy.png" alt="ReferenceError" /></a></p>
+
+<p>That&rsquo;s V8 optimizing the function and seeing that <code>thing</code> isn&rsquo;t used in the function and therefore not putting it into the closure scope. There are a couple of ways to break this optimization, one is to use <code>thing</code> somewhere in the debugging function, however the problem with this is that you must enumerate all the vars you want to inspect. An easier technique I&rsquo;ve found is to make it impossible for V8 to know what vars will be used in the function. What that entails is to just have a blank <code>eval</code> in the function somewhere (I usually put in right before the debugger statement):</p>
+
+<p><a href="http://i.imgur.com/wnFtgte.png"><img src="http://i.imgur.com/wnFtgte.png" alt="ReferenceError" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[See Return Value in DevTools]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2014/04/01/see-return-value-in-devtools/"/>
+    <updated>2014-04-01T11:05:39-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2014/04/01/see-return-value-in-devtools</id>
+    <content type="html"><![CDATA[<p>I noticed recently that Dev Tools lets you take a look at what a function is about to return. Take a look at this screen:
+<img src="http://i.imgur.com/aL9QiSb.png" alt="see return value" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Useful Snippets]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2013/11/24/useful-snippets/"/>
+    <updated>2013-11-24T14:25:14-05:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2013/11/24/useful-snippets</id>
+    <content type="html"><![CDATA[<p>I recently found <a href="http://bgrins.github.io/devtools-snippets/">this useful page for devtools snippets</a></p>
+
+<p>I never really used snippets before (I do have a ton of bookmarklets though), and I wanted to
+incorporate all the snippets on that page. There really isn&rsquo;t any built in way to do that, but since practically
+everything in Chrome is exposed we can hack a way into it.</p>
+
+<p>First off let&rsquo;s see what we have already. Open dev-tools and take a look at the snippets.</p>
+
+<p><a href="http://i.imgur.com/AI7ch4d.png"><img src="http://i.imgur.com/AI7ch4d.png" alt="check for snippets" /></a></p>
+
+<p>If it doesn&rsquo;t open in a new window then click the circled icon to open dev-tools in a new window.</p>
+
+<p>Now you should have something that looks like this:</p>
+
+<p><a href="http://i.imgur.com/1xL13sh.png"><img src="http://i.imgur.com/1xL13sh.png" alt="dev-tools in a new window" /></a></p>
+
+<p>Now comes the cool part, we&rsquo;re going to open devtools on the devtools window. With the active window the
+dev-tools window click <code>Ctrl + Shift + J</code> and you should see this:</p>
+
+<p><a href="http://i.imgur.com/dAO8Rh3.png"><img src="http://i.imgur.com/dAO8Rh3.png" alt="inception dev-tools" /></a></p>
+
+<p>Now go to the Resources tab and Local Storage, there may be more then one but it should be easy to figure
+out which one you need, then go to the scriptSnippets object:</p>
+
+<p><a href="http://i.imgur.com/pcpPbsM.png"><img src="http://i.imgur.com/pcpPbsM.png" alt="scriptSnippets" /></a></p>
+
+<p>Hopefully you can see where this is going. Let&rsquo;s open up a dev-tools window on the second one by clicking
+<code>Ctrl + Shift + J</code> on the second window, I resized a bit to make it more manageable:</p>
+
+<p><a href="http://i.imgur.com/6vSHVH0.png"><img src="http://i.imgur.com/6vSHVH0.png" alt="" /></a></p>
+
+<p>Now let&rsquo;s head over to <a href="http://bgrins.github.io/devtools-snippets/">http://bgrins.github.io/devtools-snippets/</a> and scrape the snippets. Open up the
+console on that page and paste:</p>
+
+<p><div>
+  <pre><code class='javascript'>&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;var snippetsWrappers = document.getElementsByClassName(&amp;lsquo;snippet-wrapper&amp;rsquo;);
+  var snippets = [];
+  for (var i = 0; i &amp;lt; snippetsWrappers.length; i++) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  snippets.push({
+      name: snippetsWrappers[i].id,
+      content: '//' + snippetsWrappers[i].childNodes[0].innerText.replace('\n', '\n//') +
+          '\n' + snippetsWrappers[i].childNodes[1].innerText
+  });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  }
+  copy(JSON.stringify(snippets));</code></pre>
+</div>
+</p></blockquote>
+
+<p>We now have a stringified version of the snippets in the system clipboard using the magic of
+<a href="../../../../2013/10/16/devtools-copy-to-clipboard/">copy on the console</a></p>
+
+<p>Now that we have that in the clipboard we can now close that window.  Now we need to merge in what we
+have in the clipboard with the current snippets, one way to do that is with this (in the right hand
+side window):</p>
+
+<p><div>
+  <pre><code class='javascript'>&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;var snippetsToAdd = JSON.parse(prompt(&amp;lsquo;Hit ctrl + v and enter&amp;rsquo;));
+  var currentSnippets = JSON.parse(localStorage.scriptSnippets);
+  var nextId = Math.max.apply(Math, currentSnippets.map(function(obj) { return obj.id })) + 1;
+  for (var i = 0; i &amp;lt; snippetsToAdd.length; i++) {&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  currentSnippets.push({
+      name: snippetsToAdd[i].name,
+      content: snippetsToAdd[i].content,
+      id: nextId++
+  });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;  }
+  localStorage.scriptSnippets = JSON.stringify(currentSnippets);</code></pre>
+</div>
+</p></blockquote>
+
+<p><a href="http://i.imgur.com/ZXzD3Y3.png"><img src="http://i.imgur.com/ZXzD3Y3.png" alt="merging in snippets" /></a></p>
+
+<p>You&rsquo;ll get a prompt and you need to paste in the contents of the clipboard. This was the easiest way I could
+think of to share data between windows</p>
+
+<p>If all went as planned then put focus on the bottom left window, hit F5 and you should now see:</p>
+
+<p><a href="http://i.imgur.com/PGoqrjB.png"><img src="http://i.imgur.com/PGoqrjB.png" alt="Success!!" /></a></p>
+
+<p>You can see that the snippets are there in the top left window.</p>
+
+<p>Play around while you&rsquo;re in there,  hopefully you&rsquo;ll learn about the internals of how dev-tools work</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Devtools Copy to Clipboard]]></title>
+    <link href="http://kolodny.github.io/blog/blog/2013/10/16/devtools-copy-to-clipboard/"/>
+    <updated>2013-10-16T11:08:00-04:00</updated>
+    <id>http://kolodny.github.io/blog/blog/2013/10/16/devtools-copy-to-clipboard</id>
+    <content type="html"><![CDATA[<p>I was playing around with devtools and i saw in the autocomplete list of functions had <code>copy()</code><br/>
+It does what it sounds like it does (copies text to the clipboard)
+<div>
+  <pre><code class='javascript'>&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;copy(&amp;ldquo;I&amp;rsquo;m about to hit ctrl+v&amp;rdquo;)
+undefined
+I&amp;rsquo;m about to hit ctrl+v</code></pre>
+</div>
+
+Very useful for when you need to manipulate large chunks of text.</p></blockquote>
+
+<p>Works in Devtools and Firebug (at least)</p>
+]]></content>
+  </entry>
+  
+</feed>
